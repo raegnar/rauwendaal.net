@@ -2,6 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2014_06_14 Rendering a Screen Covering Triangle in OpenGL (with no buffers)/index.html",
+      "/posts/2014_08_09 Rendering Volume Filling Triangles in OpenGL (with no buffers)/index.html",
       "/posts/post-with-code/index.html",
       "/posts/welcome/index.html"
     ]

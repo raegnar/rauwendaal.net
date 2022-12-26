@@ -7,11 +7,11 @@
     "text": "About this blog"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "rauwendaal.net",
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nDec 26, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nDec 23, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -21,10 +21,24 @@
     "text": "This is a post with executable code."
   },
   {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
+    "objectID": "posts/2014_06_14 Rendering a Screen Covering Triangle in OpenGL (with no buffers)/index.html",
+    "href": "posts/2014_06_14 Rendering a Screen Covering Triangle in OpenGL (with no buffers)/index.html",
+    "title": "Rendering a Screen Covering Triangle in OpenGL (with no buffers)",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "This one has been on the backlog for ages now.  Anyway, this is an OpenGL adaptation of a clever trick that's been around for quite awhile and described in DirectX terms by Cort Stratton (@postgoodism) in the \"An interesting vertex shader trick\" on #AltDevBlogADay.\nIt describes a method for rendering a triangle that covers the screen with no buffer inputs.  All vertex and texture coordinate information are generated solely from the vertexID.  Unfortunately, because OpenGL uses a right-handed coordinate system while DirectX uses a left-handed coordinate system the same vertexID transformation used for DirectX won't work in OpenGL.  Basically, we need to reverse the order of the triangle vertices so that they are traversed counter-clockwise as opposed to clockwise in the original implementation. So, after a bit of experimentation I came up with the following adaptation for OpenGL:\n\n\n\n\n\n\n\n1\n2\n3\n4\n5\n6\nvoid main()\n{\nfloat x = -1.0 + float((gl_VertexID & 1) << 2);\nfloat y = -1.0 + float((gl_VertexID & 2) << 1);\ngl_Position = vec4(x, y, 0, 1);\n}\n\n\n\n\n\n\n\n\n\nThis transforms the gl_VertexID as follows:\ngl_VertexID=0 -> (-1,-1) gl_VertexID=1 -> ( 3,-1) gl_VertexID=2 -> (-1, 3)\nWe can easily add texture coordinates to this as well:\n\n\n\n\n\n\n\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nout vec2 texCoord;\nvoid main()\n{\nfloat x = -1.0 + float((gl_VertexID & 1) << 2);\nfloat y = -1.0 + float((gl_VertexID & 2) << 1);\ntexCoord.x = (x+1.0)*0.5;\ntexCoord.y = (y+1.0)*0.5;\ngl_Position = vec4(x, y, 0, 1);\n}\n\n\n\n\n\n\n\n\n\nWhich is going to provide in that homogeneous clip space region a position value varying from -1 to 1 and texture coordinates varying from 0 to 1 exactly as OpenGL would expect, all without need to any create any buffers. All you have to do is make single call to glDrawArrays and tell it to render 3 vertices:\n\n\n\n1\nglDrawArrays( GL_TRIANGLES, 0, 3 );\n\n\n\n\n\nThis draw a triangle that looks like the following:\n\n\n\n\n\nIt's surprising how often this comes in handy, in a later post I'll describe how to adapt this trick to efficiently access the elements of a 3D texture.  It also amuses me greatly that Iñigo Quilez's amazing demo/presentation \"Rendering World's With Two Triangles\" could actually be renamed \"Renderings Worlds With One Triangle.\""
+  },
+  {
+    "objectID": "posts/2014_08_09 Rendering Volume Filling Triangles in OpenGL (with no buffers)/index.html",
+    "href": "posts/2014_08_09 Rendering Volume Filling Triangles in OpenGL (with no buffers)/index.html",
+    "title": "Rendering Volume Filling Triangles in OpenGL (with no buffers)",
+    "section": "",
+    "text": "This is the promised follow-up to Rendering a Screen Covering Triangle in OpenGL (with no buffers), except this time the goal is to write a shader that accesses every location in a 3d texture (volume).  We use the same screen covering trick as before to draw a triangle to cover a viewport match to the X and Y dimensions of the volume, and we use instanced rendering to draw repeated triangles for each layer in the Z-dimension.\nThe vertex shader looks the same as before with the addition of the instanceID.\nflat out int instanceID;\n\nvoid main()\n{\n  float x = -1.0 + float((gl_VertexID & 1) << 2);\n  float y = -1.0 + float((gl_VertexID & 2) << 1);\n  instanceID  = gl_InstanceID;\n  gl_Position = vec4(x, y, 0, 1);\n}\nThe fragment shader can then recover the voxel coordinates from gl_FragCoord and the instanceID.\nflat in int instanceID;\n\nvoid main()\n{\n  ivec3 voxelCoord = ivec3(gl_FragCoord.xy, instanceID);\n  voxelOperation(voxelCoord);\n}\nVery similar to drawing the single screen covering triangle, we set our viewport to the XY-dimensions of the volume, bind a junk VAO to make certain graphics drivers happy, and call glDrawArraysInstanced with the Z-dimension of the volume, so that we draw a triangle per-slice of the volume.\nglViewport(0, 0, width, height);\nglBindVertexArray(junkVAO);\nglDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 3, depth);\nWhich would look sort of like the following:\n\n\n\n\n\nThis can be useful for quickly processing a volume. Initially, I used this as an OpenGL 4.2 fallback (instead of compute shaders) so that I could still use the NSight debugger, until I realized this approach was actually outperforming the compute shader. Of course, when to use compute shaders, and how to use them effectively deserves a post of its own."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "rauwendaal.net",
+    "section": "",
+    "text": "Rendering a Screen Covering Triangle in OpenGL (with no buffers)\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\nRendering Volume Filling Triangles in OpenGL (with no buffers)\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\nPost With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nDec 26, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nDec 23, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
   }
 ]
