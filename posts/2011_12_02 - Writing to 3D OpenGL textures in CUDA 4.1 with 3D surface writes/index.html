@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Randall Rauwendaal">
+<meta name="dcterms.date" content="2011-12-02">
+
+<title>rauwendaal.net - Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">rauwendaal.net</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="dropdown-header">
+ <span class="menu-text">blog.qmd</span></li>
+  <li class="dropdown-header">
+ <span class="menu-text">pubs.qmd</span></li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">CUDA</div>
+                <div class="quarto-category">OpenGL</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Randall Rauwendaal </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 2, 2011</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p><strong>Edit:</strong> For how this works in CUDA 5 see my new post <a href="https://rauwendaal.net/2013/04/03/cuda-5-and-opengl-interop/" title="CUDA 5 and OpenGL Interop and Dynamic Parallelism">CUDA 5 and OpenGL Interop and Dynamic&nbsp;Parallelism</a>.</p>
+<p>CUDA 4.1 has been <a href="http://developer.nvidia.com/cuda-toolkit-41">released</a>, and with it, and they've added support for writing to 3D surfaces. And thanks to some pointers from some very helpful Nvidia engineers (thanks <a href="http://www.mpi-inf.mpg.de/~gziegler/">Gernot</a>!), I was able to write to a 3D OpenGL texture with a CUDA kernel, without having to copy any data between the host and the device.</p>
+<p>The new toolkit has an excellent volumeFiltering sample that shows how to write to 3D surfaces, which was very helpful, but there are still a couple of gotchas to watch out for.</p>
+<section id="opengl-interop" class="level2">
+<h2 class="anchored" data-anchor-id="opengl-interop">OpenGL interop</h2>
+<p>The sample uses <code>cudaMalloc3DArray</code>&nbsp;to directly allocate data for the 3D surfaces, so it doesn't show the process for 3D surface writes in which the allocation has occurred by creating an OpenGL texture. Fortunately, that takes just a few extra steps.</p>
+</section>
+<section id="the-steps" class="level2">
+<h2 class="anchored" data-anchor-id="the-steps">The Steps</h2>
+<ol type="1">
+<li><a href="https://rauwendaal.net/2011/12/#step1">Create an OpenGL 3D Texture</a></li>
+<li><a href="https://rauwendaal.net/2011/12/#step2">Register the texture as an "image" with CUDA</a></li>
+<li><a href="https://rauwendaal.net/2011/12/#step3">Map the "image" to a CUDA graphics resource</a></li>
+<li><a href="https://rauwendaal.net/2011/12/#step4">Get a <code>cudaArray</code> pointer from the resource</a></li>
+<li><a href="https://rauwendaal.net/2011/12/#step5">Pass the <code>cudaArray</code> pointer to the device</a></li>
+<li><a href="https://rauwendaal.net/2011/12/#step6">Bind the <code>cudaArray</code> to a globally scoped CUDA surface</a></li>
+<li><a href="https://rauwendaal.net/2011/12/#step7">Call a CUDA kernel</a></li>
+<li><a href="https://rauwendaal.net/2011/12/#step8">Write to the surface using <code>surf3Dwrite</code></a></li>
+<li><a href="https://rauwendaal.net/2011/12/#step9">Unmap the resource</a></li>
+<li><a href="https://rauwendaal.net/2011/12/#step10">Unregister the texture</a></li>
+</ol>
+<section id="step-1-create-an-opengl-3d-texture" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-create-an-opengl-3d-texture">Step 1: Create an OpenGL 3D texture</h3>
+<p>Hopefully most people know how to do this, just watch out that you are using a texture format that is CUDA compatible, I'm not entirely sure all which textures are supported, but <a href="http://forums.nvidia.com/index.php?showtopic=164987">this forum post</a> shows a couple that definitely work.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a>glGenTextures<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="op">&amp;</span>texID<span class="op">);</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>glBindTexture<span class="op">(</span>GL_TEXTURE_3D<span class="op">,</span> texID<span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>&nbsp;&nbsp;&nbsp;&nbsp;glTexParameteri<span class="op">(</span>GL_TEXTURE_3D<span class="op">,</span> GL_TEXTURE_MIN_FILTER<span class="op">,</span> GL_NEAREST        <span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>&nbsp;&nbsp;&nbsp;&nbsp;glTexParameteri<span class="op">(</span>GL_TEXTURE_3D<span class="op">,</span> GL_TEXTURE_MAG_FILTER<span class="op">,</span> GL_NEAREST        <span class="op">);</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>&nbsp;&nbsp;&nbsp;&nbsp;glTexParameteri<span class="op">(</span>GL_TEXTURE_3D<span class="op">,</span> GL_TEXTURE_WRAP_S<span class="op">,</span>     GL_CLAMP_TO_BORDER<span class="op">);</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>&nbsp;&nbsp;&nbsp;&nbsp;glTexParameteri<span class="op">(</span>GL_TEXTURE_3D<span class="op">,</span> GL_TEXTURE_WRAP_T<span class="op">,</span>     GL_CLAMP_TO_BORDER<span class="op">);</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>&nbsp;&nbsp;&nbsp;&nbsp;glTexParameteri<span class="op">(</span>GL_TEXTURE_3D<span class="op">,</span> GL_TEXTURE_WRAP_T<span class="op">,</span>     GL_CLAMP_TO_BORDER<span class="op">);</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>&nbsp;</span>
+<span id="cb1-10"><a href="#cb1-10"></a>&nbsp;&nbsp;&nbsp;&nbsp;glTexImage3D<span class="op">(</span>GL_TEXTURE_3D<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> GL_RGBA32F<span class="op">,</span> textureDim<span class="op">.</span>x<span class="op">,</span> textureDim<span class="op">.</span>y<span class="op">,</span> textureDim<span class="op">.</span>z<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> GL_RGBA<span class="op">,</span> GL_FLOAT<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="op">}</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>glBindTexture<span class="op">(</span>GL_TEXTURE_3D<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-2-register-the-texture-as-an-image-with-cuda" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-register-the-texture-as-an-image-with-cuda">Step 2:&nbsp;Register the texture as an “image” with CUDA</h3>
+<p>This is done with cudaGraphicsGLRegisterImage, just make sure you specify the cudaGraphicsRegisterFlagsSurfaceLoadStore flag as this tell CUDA that you want to bind this image/texture to a surface reference. If you wrap this in a cutilSafeCall and you used an unsupported texture format, you’ll probably get an error message. 1</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a>cutilSafeCall<span class="op">(</span>cudaGraphicsGLRegisterImage<span class="op">(&amp;</span>cuda_image_resource<span class="op">,</span> texID<span class="op">,</span> GL_TEXTURE_3D<span class="op">,</span> cudaGraphicsRegisterFlagsSurfaceLoadStore<span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-3-map-the-image-to-a-cuda-graphics-resource" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-map-the-image-to-a-cuda-graphics-resource">Step 3:&nbsp;Map the “image” to a CUDA graphics resource</h3>
+<p>You must map the resource with cudaGraphicsMapResources before you can get a cudaArray from it. 1</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a>cutilSafeCall<span class="op">(</span>cudaGraphicsMapResources<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="op">&amp;</span>cuda_image_resource<span class="op">,</span> <span class="dv">0</span><span class="op">));</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-4-get-a-cudaarray-pointer-from-the-resource" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-get-a-cudaarray-pointer-from-the-resource">Step 4:&nbsp;Get a cudaArray pointer from the resource</h3>
+<p>Unlike with buffers, we won’t get a raw pointer from CUDA, instead we get a mapped cudaArray type by calling cudaGraphicsSubResourceGetMappedArray. The cudaArray pointer is only guaranteed valid while “mapped”. 1</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a>cutilSafeCall<span class="op">(</span>cudaGraphicsSubResourceGetMappedArray<span class="op">(&amp;</span>cuda_array<span class="op">,</span> cuda_image_resource<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-5-pass-the-cudaarray-pointer-to-the-device" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-pass-the-cudaarray-pointer-to-the-device">Step 5: Pass the cudaArray pointer to the device</h3>
+<p>Getting the cudaArray pointer is pretty much the last thing we do on the host side. Once we have the pointer we pass it over to the device side code (in the .cu file) 1</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1"></a>launch_kernel<span class="op">(</span>cuda_image_array<span class="op">,</span> textureDim<span class="op">);</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-6-bind-the-cudaarray-to-a-globally-scoped-cuda-surface" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-bind-the-cudaarray-to-a-globally-scoped-cuda-surface">Step 6:&nbsp;Bind the cudaArray to a globally scoped CUDA surface</h3>
+<p>Once we have the cudaArray pointer on the device side we bind it to the surface reference. For some reason the surface reference must be declared in the global scope. There is no cudaUnbindSurface, so don’t worry about that. 1</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1"></a>cutilSafeCall<span class="op">(</span>cudaBindSurfaceToArray<span class="op">(</span>surfaceWrite<span class="op">,</span> cuda_array<span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-7-call-a-cuda-kernel" class="level3">
+<h3 class="anchored" data-anchor-id="step-7-call-a-cuda-kernel">Step 7:&nbsp;Call a CUDA kernel</h3>
+<p>Now that we have a surface reference to work with we can call our CUDA kernel. Make sure not to use too large of block for your kernel launch, which is pretty easy to do if your specifying the dimension in 3D. I believe the limit is 1024 on current gen hardware. If you exceed the limit the kernel will fail to launch, you can catch this with cutilCheckMsg.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1"></a>dim3 block_dim<span class="op">(</span><span class="dv">8</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">8</span><span class="op">);</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>dim3 grid_dim<span class="op">(</span>texture_dim<span class="op">.</span>x<span class="op">/</span>block_dim<span class="op">.</span>x<span class="op">,</span> texture_dim<span class="op">.</span>y<span class="op">/</span>block_dim<span class="op">.</span>y<span class="op">,</span> texture_dim<span class="op">.</span>z<span class="op">/</span>block_dim<span class="op">.</span>z<span class="op">);</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>&nbsp;</span>
+<span id="cb7-4"><a href="#cb7-4"></a>kernel<span class="op">&lt;&lt;&lt;</span> grid_dim<span class="op">,</span> block_dim <span class="op">&gt;&gt;&gt;(</span>texture_dim<span class="op">);</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>&nbsp;</span>
+<span id="cb7-6"><a href="#cb7-6"></a>cutilCheckMsg<span class="op">(</span><span class="st">"kernel failed"</span><span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-8-write-to-the-surface-using-surf3dwrite" class="level3">
+<h3 class="anchored" data-anchor-id="step-8-write-to-the-surface-using-surf3dwrite">Step 8:&nbsp;Write to the surface using surf3Dwrite</h3>
+<p>Now that we’ve launched our CUDA kernel we can write to the globally scoped surface with surf3Dwrite. I got tripped up at this point because I didn’t realize that surface memory uses byte addressing. This means that the x-coordinate used to access a surface element needs to be multiplied by the byte size of the element. This is easy to miss if you’re going by the SDK sample, since it uses a 1-byte surface of unsigned char’s.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1"></a>__global__</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="dt">void</span> kernel<span class="op">(</span>dim3 texture_dim<span class="op">)</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="op">{</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>&nbsp;&nbsp;&nbsp;&nbsp;int x <span class="op">=</span> blockIdx<span class="op">.</span>x<span class="op">*</span>blockDim<span class="op">.</span>x <span class="op">+</span> threadIdx<span class="op">.</span>x<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>&nbsp;&nbsp;&nbsp;&nbsp;int y <span class="op">=</span> blockIdx<span class="op">.</span>y<span class="op">*</span>blockDim<span class="op">.</span>y <span class="op">+</span> threadIdx<span class="op">.</span>y<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>&nbsp;&nbsp;&nbsp;&nbsp;int z <span class="op">=</span> blockIdx<span class="op">.</span>z<span class="op">*</span>blockDim<span class="op">.</span>z <span class="op">+</span> threadIdx<span class="op">.</span>z<span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>&nbsp;</span>
+<span id="cb8-8"><a href="#cb8-8"></a>&nbsp;&nbsp;&nbsp;&nbsp;if<span class="op">(</span>x <span class="op">&gt;=</span> texture_dim<span class="op">.</span>x <span class="op">||</span> y <span class="op">&gt;=</span> texture_dim<span class="op">.</span>y <span class="op">||</span> z <span class="op">&gt;=</span> texture_dim<span class="op">.</span>z<span class="op">)</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">{</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return<span class="op">;</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">}</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>&nbsp;</span>
+<span id="cb8-13"><a href="#cb8-13"></a>&nbsp;&nbsp;&nbsp;&nbsp;float4 element <span class="op">=</span> make_float4<span class="op">(</span><span class="fl">1.0</span><span class="bu">f</span><span class="op">,</span> <span class="fl">1.0</span><span class="bu">f</span><span class="op">,</span> <span class="fl">1.0</span><span class="bu">f</span><span class="op">,</span> <span class="fl">1.0</span><span class="bu">f</span><span class="op">);</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>&nbsp;&nbsp;&nbsp;&nbsp;surf3Dwrite<span class="op">(</span>element<span class="op">,</span> surfaceWrite<span class="op">,</span> x<span class="op">*</span><span class="kw">sizeof</span><span class="op">(</span>float4<span class="op">),</span> y<span class="op">,</span> z<span class="op">);</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-9-unmap-the-resource" class="level3">
+<h3 class="anchored" data-anchor-id="step-9-unmap-the-resource">Step 9: Unmap the resource</h3>
+<p>Make sure to unmap the resource with cudaGraphicsUnmapResources before you try to do anything else with the texture, like use it in OpenGL. If you surface writes were misaligned you’ll probably get an “unknown error” when trying to unmap the resource, if it was called with cutilSafeCall. 1</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1"></a>cutilSafeCall<span class="op">(</span>cudaGraphicsUnmapResources<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="op">&amp;</span>cuda_image_resource<span class="op">,</span> <span class="dv">0</span><span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-10-unregister-the-texture" class="level3">
+<h3 class="anchored" data-anchor-id="step-10-unregister-the-texture">Step 10: Unregister the texture</h3>
+<p>This is just more cleanup, be sure to unregister the texture/image resource with cudaGraphicsUnregisterResource, you probably don’t want to do this until you are done with the texture. 1</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1"></a>cutilSafeCall<span class="op">(</span>cudaGraphicsUnregisterResource<span class="op">(</span>cuda_image_resource<span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="conclusion-source" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-source">Conclusion &amp; Source</h3>
+<p>This is a feature I’ve been looking forward to for quite awhile, and I’m very glad to see it implemented in the newest CUDA release. Hopefully I’ve managed to describe to process clearly enough that other people can avoid the mistakes I made. If you still having trouble make sure you’ve called cudaGLSetGLDevice. I created a very simple source example from an SDK sample, so hopefully it will work/compile if you extract it in your SDK sample directory (C:\ProgramData\NVIDIA Corporation\NVIDIA GPU Computing SDK 4.1\C\src).</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
