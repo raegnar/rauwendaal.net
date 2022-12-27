@@ -1,9 +1,12 @@
 ---
 title: "Rendering Volume Filling Triangles in OpenGL (with no buffers)"
+author: "Randall Rauwendaal"
 format: 
   html:
     code-line-numbers: true
 editor: visual
+date: "2014-08-09"
+categories: [GLSL, OpenGL]
 ---
 
 This is the promised follow-up to [Rendering a Screen Covering Triangle in OpenGL (with no buffers)](https://rauwendaal.net/2014/06/14/rendering-a-screen-covering-triangle-in-opengl/ "Rendering a Screen Covering Triangle in OpenGL (with no buffers)"), except this time the goal is to write a shader that accesses every location in a 3d texture (volume).  We use the same screen covering trick as before to draw a triangle to cover a viewport match to the X and Y dimensions of the volume, and we use instanced rendering to draw repeated triangles for each layer in the Z-dimension.

@@ -1,0 +1,42 @@
+---
+title: "OpenGL 4.3 released"
+author: "Randall Rauwendaal"
+format: 
+  html:
+    code-line-numbers: true
+editor: visual
+date: "2012-08-06"
+categories: [OpenGL]
+---
+
+OpenGL 4.3 has just been released and almost instantly [G-Truc](http://www.g-truc.net/) (Christophe Riccio) posted another excellent of his excellent [OpenGL reviews](http://www.g-truc.net/doc/OpenGL4.3review.pdf).  Additionally [Mike Bailey](http://web.engr.oregonstate.edu/~mjb/WebMjb/mjb.html) has already made available some [slides](http://web.engr.oregonstate.edu/~mjb/sig12/compute.shader.1pp.pdf) on the new Compute shaders.  And as usual nvidia already has [beta drivers](http://www.nvidia.com/content/devzone/opengl-driver-4.3.html) available.
+
+With over 20 new extensions this is a rather large update for a point release, and while I'm extremely grateful that people have had a chance preview these extensions and provide an alternative to the pain of reading through the extensions themselves (though I will probably do that anyway), I can't help but wish that this sort of access wasn't so exclusive. I find the current method of dumping a bunch of new extensions out each SIGGRAPH and shouting "Surprise!" a bit jarring, and more tragically there is no mechanism to allow the OpenGL community at large to provide feedback (unless you are a member of Khronos, I guess).
+
+If you look at the extensions I think they lend themselves perfectly to publication on some sort of official Wiki, revision history would be managed automatically, the OpenGL community could provide feedback on the discussion page, and Khronos members would have permission to make the actual edits to the extension. I guess what I am saying, in particular regards to the publication of new extensions, is that I wish OpenGL were a little bit more "open."
+
+-   [OpenGL 4.3 core specification (with changes)](http://www.opengl.org/registry/doc/glspec43.core.20120806.withchanges.pdf)
+-   [GLSL 4.3 specification](http://www.opengl.org/registry/doc/GLSLangSpec.4.30.6.pdf)
+-   [OpenGL 4.3 review](http://www.g-truc.net/doc/OpenGL4.3review.pdf) *Extensions:*
+-   [ARB_arrays_of_arrays](http://us.download.nvidia.com/opengl/specs/GL_ARB_arrays_of_arrays.txt)
+-   [ARB_clear_buffer_object](http://us.download.nvidia.com/opengl/specs/GL_ARB_clear_buffer_object.txt)
+-   [ARB_copy_image](http://us.download.nvidia.com/opengl/specs/GL_ARB_copy_image.txt)
+-   [ARB_ES3_compatibility](http://us.download.nvidia.com/opengl/specs/GL_ARB_ES3_compatibility.txt)
+-   [ARB_explicit_uniform_location](http://us.download.nvidia.com/opengl/specs/GL_ARB_explicit_uniform_location.txt)
+-   [ARB_fragment_layer_viewport](http://us.download.nvidia.com/opengl/specs/GL_ARB_fragment_layer_viewport.txt)
+-   [ARB_framebuffer_no_attachments](http://us.download.nvidia.com/opengl/specs/GL_ARB_framebuffer_no_attachments.txt)
+-   [ARB_internalformat_query2](http://us.download.nvidia.com/opengl/specs/GL_ARB_internalformat_query2.txt)
+-   [ARB_invalidate_subdata](http://us.download.nvidia.com/opengl/specs/GL_ARB_invalidate_subdata.txt)
+-   [ARB_program_interface_query](http://us.download.nvidia.com/opengl/specs/GL_ARB_program_interface_query.txt)
+-   [ARB_robust_buffer_access_behavior](http://us.download.nvidia.com/opengl/specs/GL_ARB_robust_buffer_access_behavior.txt)
+-   [ARB_stencil_texturing](http://us.download.nvidia.com/opengl/specs/GL_ARB_stencil_texturing.txt)
+-   [ARB_texture_buffer_range](http://us.download.nvidia.com/opengl/specs/GL_ARB_texture_buffer_range.txt)
+-   [ARB_texture_query_levels](http://us.download.nvidia.com/opengl/specs/GL_ARB_texture_query_levels.txt)
+-   [ARB_texture_storage_multisample](http://us.download.nvidia.com/opengl/specs/GL_ARB_texture_storage_multisample.txt)
+-   [ARB_texture_view](http://us.download.nvidia.com/opengl/specs/GL_ARB_texture_view.txt)
+-   [ARB_vertex_attrib_binding](http://us.download.nvidia.com/opengl/specs/GL_ARB_vertex_attrib_binding.txt)
+-   [KHR_debug](http://us.download.nvidia.com/opengl/specs/GL_KHR_debug.txt)
+-   [ARB_compute_shader](http://us.download.nvidia.com/opengl/specs/GL_ARB_compute_shader.txt)
+-   [ARB_multi_draw_indirect](http://us.download.nvidia.com/opengl/specs/GL_ARB_multi_draw_indirect.txt)
+-   [ARB_shader_image_size](http://us.download.nvidia.com/opengl/specs/GL_ARB_shader_image_size.txt)
+-   [ARB_shader_storage_buffer_object](http://us.download.nvidia.com/opengl/specs/GL_ARB_shader_storage_buffer_object.txt)

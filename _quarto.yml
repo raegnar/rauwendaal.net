@@ -6,13 +6,15 @@ website:
   navbar:
     right:
       - about.qmd
+      - blog.qmd
+      - pubs.qmd
       - icon: github
         href: https://github.com/
       - icon: twitter
         href: https://twitter.com
 format:
   html:
-    theme: cosmo
+    theme: litera
     css: styles.css
 execute:
   freeze: auto

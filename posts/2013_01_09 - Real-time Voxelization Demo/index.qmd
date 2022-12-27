@@ -1,0 +1,12 @@
+---
+title: "Real-time voxelization demo"
+author: "Randall Rauwendaal"
+format: 
+  html:
+    code-line-numbers: true
+editor: visual
+date: "2013-02-09"
+categories: [GLSL, OpenGL]
+---
+ 
+{{< video https://www.youtube.com/embed/logYj5nnki4 >}}
