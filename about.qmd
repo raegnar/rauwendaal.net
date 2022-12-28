@@ -1,6 +1,6 @@
 ---
 title: "About"
-image: profile.jpg
+# image: profile.jpg
 about:
   template: jolla
   links:
@@ -16,4 +16,4 @@ about:
 
 ---
 
-About this blog
+I’m a guy who’s endlessly curious about computer graphics. After spending way too much time in school I completed my Doctorate (available here) and I've had the good fortune to work with many brilliant people at several companies, and I've contributed a few things that I'm quite proud of, see my Resume for more.
