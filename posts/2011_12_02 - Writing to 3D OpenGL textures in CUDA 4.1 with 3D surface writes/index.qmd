@@ -7,40 +7,36 @@ format:
 editor: visual
 date: "2011-12-02"
 categories: [CUDA, OpenGL]
+sidebar:
+  style: "docked"
 ---
 
-**Edit:** For how this works in CUDA 5 see my new post [CUDA 5 and OpenGL Interop and Dynamic Parallelism](https://rauwendaal.net/2013/04/03/cuda-5-and-opengl-interop/ "CUDA 5 and OpenGL Interop and Dynamic Parallelism").
+**Edit:** For how this works in CUDA 5 see my new post [CUDA 5 and OpenGL Interop and Dynamic Parallelism](https://rauwendaal.net/2013/04/03/cuda-5-and-opengl-interop/ "CUDA 5 and OpenGL Interop and Dynamic Parallelism").
 
-CUDA 4.1 has been [released](http://developer.nvidia.com/cuda-toolkit-41), and with it, and they\'ve added support for writing to 3D surfaces. And
-thanks to some pointers from some very helpful Nvidia engineers (thanks [Gernot](http://www.mpi-inf.mpg.de/~gziegler/)!), I was able to write to a 3D OpenGL texture with a CUDA kernel, without having to copy any data between the host and the device.
+CUDA 4.1 has been [released](http://developer.nvidia.com/cuda-toolkit-41), and with it, and they've added support for writing to 3D surfaces. And thanks to some pointers from some very helpful Nvidia engineers (thanks [Gernot](http://www.mpi-inf.mpg.de/~gziegler/)!), I was able to write to a 3D OpenGL texture with a CUDA kernel, without having to copy any data between the host and the device.
 
 The new toolkit has an excellent volumeFiltering sample that shows how to write to 3D surfaces, which was very helpful, but there are still a couple of gotchas to watch out for.
 
-## OpenGL interop
+### OpenGL interop
 
-The sample uses `cudaMalloc3DArray` to directly allocate
-data for the 3D surfaces, so it doesn\'t show the process for 3D surface
-writes in which the allocation has occurred by creating an OpenGL
-texture. Fortunately, that takes just a few extra steps.
+The sample uses `cudaMalloc3DArray` to directly allocate data for the 3D surfaces, so it doesn't show the process for 3D surface writes in which the allocation has occurred by creating an OpenGL texture. Fortunately, that takes just a few extra steps.
 
-## The Steps
+### The Steps
 
-1.  [Create an OpenGL 3D Texture](https://rauwendaal.net/2011/12/#step1)
-2.  [Register the texture as an \"image\" with CUDA](https://rauwendaal.net/2011/12/#step2)
-3.  [Map the \"image\" to a CUDA graphics resource](https://rauwendaal.net/2011/12/#step3)
-4.  [Get a `cudaArray` pointer from the resource](https://rauwendaal.net/2011/12/#step4)
-5.  [Pass the `cudaArray` pointer to the device](https://rauwendaal.net/2011/12/#step5)
-6.  [Bind the `cudaArray` to a globally scoped CUDA surface](https://rauwendaal.net/2011/12/#step6)
-7.  [Call a CUDA kernel](https://rauwendaal.net/2011/12/#step7)
-8.  [Write to the surface using `surf3Dwrite`](https://rauwendaal.net/2011/12/#step8)
-9.  [Unmap the resource](https://rauwendaal.net/2011/12/#step9)
-10. [Unregister the texture](https://rauwendaal.net/2011/12/#step10)
+1.  [Create an OpenGL 3D Texture](#step1)
+2.  [Register the texture as an "image" with CUDA](#step-2)
+3.  [Map the "image" to a CUDA graphics resource](#step-3)
+4.  [Get a `cudaArray` pointer from the resource](#step-4)
+5.  [Pass the `cudaArray` pointer to the device](#step-5)
+6.  [Bind the `cudaArray` to a globally scoped CUDA surface](#step6)
+7.  [Call a CUDA kernel](#step7)
+8.  [Write to the surface using `surf3Dwrite`](#step8)
+9.  [Unmap the resource](#step9)
+10. [Unregister the texture](#step10)
 
-### Step 1: Create an OpenGL 3D texture
+### Step 1: Create an OpenGL 3D texture {#step-1}
 
-Hopefully most people know how to do this, just watch out that you
-are using a texture format that is CUDA compatible, I\'m not entirely
-sure all which textures are supported, but [this forum post](http://forums.nvidia.com/index.php?showtopic=164987) shows a couple that definitely work.
+Hopefully most people know how to do this, just watch out that you are using a texture format that is CUDA compatible, I'm not entirely sure all which textures are supported, but [this forum post](http://forums.nvidia.com/index.php?showtopic=164987) shows a couple that definitely work.
 
 ``` cpp
 glGenTextures(1, &texID);
@@ -57,7 +53,7 @@ glBindTexture(GL_TEXTURE_3D, texID);
 glBindTexture(GL_TEXTURE_3D, 0);
 ```
 
-### Step 2: Register the texture as an "image" with CUDA
+### Step 2: Register the texture as an "image" with CUDA {#step-2}
 
 This is done with cudaGraphicsGLRegisterImage, just make sure you specify the cudaGraphicsRegisterFlagsSurfaceLoadStore flag as this tell CUDA that you want to bind this image/texture to a surface reference. If you wrap this in a cutilSafeCall and you used an unsupported texture format, you'll probably get an error message. 1
 
@@ -65,7 +61,7 @@ This is done with cudaGraphicsGLRegisterImage, just make sure you specify the cu
 cutilSafeCall(cudaGraphicsGLRegisterImage(&cuda_image_resource, texID, GL_TEXTURE_3D, cudaGraphicsRegisterFlagsSurfaceLoadStore));
 ```
 
-### Step 3: Map the "image" to a CUDA graphics resource
+### Step 3: Map the "image" to a CUDA graphics resource {#step-3}
 
 You must map the resource with cudaGraphicsMapResources before you can get a cudaArray from it. 1
 
@@ -73,7 +69,7 @@ You must map the resource with cudaGraphicsMapResources before you can get a cud
 cutilSafeCall(cudaGraphicsMapResources(1, &cuda_image_resource, 0)); 
 ```
 
-### Step 4: Get a cudaArray pointer from the resource
+### Step 4: Get a cudaArray pointer from the resource {#step-4}
 
 Unlike with buffers, we won't get a raw pointer from CUDA, instead we get a mapped cudaArray type by calling cudaGraphicsSubResourceGetMappedArray. The cudaArray pointer is only guaranteed valid while "mapped". 1
 
@@ -81,7 +77,7 @@ Unlike with buffers, we won't get a raw pointer from CUDA, instead we get a mapp
 cutilSafeCall(cudaGraphicsSubResourceGetMappedArray(&cuda_array, cuda_image_resource, 0, 0));
 ```
 
-### Step 5: Pass the cudaArray pointer to the device
+### Step 5: Pass the cudaArray pointer to the device {#step-5}
 
 Getting the cudaArray pointer is pretty much the last thing we do on the host side. Once we have the pointer we pass it over to the device side code (in the .cu file) 1
 
@@ -89,7 +85,7 @@ Getting the cudaArray pointer is pretty much the last thing we do on the host si
 launch_kernel(cuda_image_array, textureDim); 
 ```
 
-### Step 6: Bind the cudaArray to a globally scoped CUDA surface
+### Step 6: Bind the cudaArray to a globally scoped CUDA surface {#step-6}
 
 Once we have the cudaArray pointer on the device side we bind it to the surface reference. For some reason the surface reference must be declared in the global scope. There is no cudaUnbindSurface, so don't worry about that. 1
 
@@ -97,7 +93,7 @@ Once we have the cudaArray pointer on the device side we bind it to the surface 
 cutilSafeCall(cudaBindSurfaceToArray(surfaceWrite, cuda_array));
 ```
 
-### Step 7: Call a CUDA kernel
+### Step 7: Call a CUDA kernel {#step-7}
 
 Now that we have a surface reference to work with we can call our CUDA kernel. Make sure not to use too large of block for your kernel launch, which is pretty easy to do if your specifying the dimension in 3D. I believe the limit is 1024 on current gen hardware. If you exceed the limit the kernel will fail to launch, you can catch this with cutilCheckMsg.
 
@@ -110,7 +106,7 @@ kernel<<< grid_dim, block_dim >>>(texture_dim);
 cutilCheckMsg("kernel failed");
 ```
 
-### Step 8: Write to the surface using surf3Dwrite
+### Step 8: Write to the surface using surf3Dwrite {#step-8}
 
 Now that we've launched our CUDA kernel we can write to the globally scoped surface with surf3Dwrite. I got tripped up at this point because I didn't realize that surface memory uses byte addressing. This means that the x-coordinate used to access a surface element needs to be multiplied by the byte size of the element. This is easy to miss if you're going by the SDK sample, since it uses a 1-byte surface of unsigned char's.
 
@@ -132,7 +128,7 @@ void kernel(dim3 texture_dim)
 }
 ```
 
-### Step 9: Unmap the resource
+### Step 9: Unmap the resource {#step-9}
 
 Make sure to unmap the resource with cudaGraphicsUnmapResources before you try to do anything else with the texture, like use it in OpenGL. If you surface writes were misaligned you'll probably get an "unknown error" when trying to unmap the resource, if it was called with cutilSafeCall. 1
 
@@ -140,7 +136,7 @@ Make sure to unmap the resource with cudaGraphicsUnmapResources before you try t
 cutilSafeCall(cudaGraphicsUnmapResources(1, &cuda_image_resource, 0));
 ```
 
-### Step 10: Unregister the texture
+### Step 10: Unregister the texture {#step-10}
 
 This is just more cleanup, be sure to unregister the texture/image resource with cudaGraphicsUnregisterResource, you probably don't want to do this until you are done with the texture. 1
 
@@ -148,6 +144,6 @@ This is just more cleanup, be sure to unregister the texture/image resource with
 cutilSafeCall(cudaGraphicsUnregisterResource(cuda_image_resource));
 ```
 
-### Conclusion & Source
+## Conclusion & Source
 
 This is a feature I've been looking forward to for quite awhile, and I'm very glad to see it implemented in the newest CUDA release. Hopefully I've managed to describe to process clearly enough that other people can avoid the mistakes I made. If you still having trouble make sure you've called cudaGLSetGLDevice. I created a very simple source example from an SDK sample, so hopefully it will work/compile if you extract it in your SDK sample directory (C:\\ProgramData\\NVIDIA Corporation\\NVIDIA GPU Computing SDK 4.1\\C\\src).

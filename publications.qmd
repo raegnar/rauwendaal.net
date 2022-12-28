@@ -1,0 +1,21 @@
+---
+title: "Publications"
+---
+
+#### Papers
+
+-   M. Sugihara and **R. Rauwendaal** and M. Salvi, [Layered Reflective Shadow Maps for Voxel-based Indirect Illumination](https://rauwendaal.net/layered-reflective-shadow-maps-for-voxel-based-indirect-illumination/), *High Performance Graphics*, 2014. Available online: <https://software.intel.com/en-us/articles/layered-reflective-shadow-maps-for-voxel-based-indirect-illumination>.
+
+-   **R. Rauwendaal** and M. Bailey, [Hybrid Computational Voxelization Using the Graphics Pipeline](https://rauwendaal.net/hybrid-computational-voxelization-using-the-graphics-pipeline/), *Journal of Computer Graphics Techniques (JCGT)*, vol. 2, no. 1, 15-37, 2013. Available online: <http://jcgt.org/published/0002/01/02/>.
+
+-   T. Morrison and **R. Rauwendaal**, A Comparison of Data Parallel Techniques for High Fidelity Smoke, *Intel Internal Whitepaper*.
+
+-   D. S. Long, S. B. Wuest, J. D. Williams, **R. Rauwendaal**, M. J. Bailey, [Contour Planting: A Strategy to Reduce Soil Erosion on Steep Slopes](https://rauwendaal.net/contour-planting-a-strategy-to-reduce-soil-erosion-on-steep-slopes/), *International Conference on Precision Agriculture*. Available online: <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.175.9623>.
+
+-   **R. Rauwendaal** and M. Bailey, Analyzing Terrain Surfaces to Synthesize and Visualize Optimal-Coverage Tractor Paths for Conservation Farming, *Tech Report*. Available online: <http://web.engr.oregonstate.edu/~mjb/WebMjb/Papers/usda.v4.pdf>.
+
+#### Theses
+
+-   **R. Rauwendaal**, Voxel Based Indirect Illumination using Spherical Harmonics, *PhD thesis*, Oregon State University, 2013, Available online: <http://hdl.handle.net/1957/42266>.
+
+-   **R. Rauwendaal**, Hybrid Computational Voxelization Using the Graphics Pipeline, *Master's thesis*, Oregon State University, 2012, Available online: <http://hdl.handle.net/1957/35463>.

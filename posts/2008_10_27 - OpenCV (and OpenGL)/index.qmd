@@ -1,15 +1,14 @@
 ---
-title: "OpenCV and OpenGL"
+title: "OpenCV (and OpenGL)"
 author: "Randall Rauwendaal"
 format: 
   html:
     code-line-numbers: true
 editor: visual
-date: "2011-02-10"
+date: "2008-10-27"
 categories: [OpenCV, OpenGL]
 ---
-
-So I started using OpenCV for my [Computer Vision](http://www.rauwendaal.net/courses/computer-vision) class, but I didn't want to give up my OpenGL based framework, and since I had such a hard time finding any hints on how to convert OpenCV Images to OpenGL textures, I'm going to post the technique I used here.  What I did eventually find was [this](http://stefanix.net/opencv-and-opengl), which didn't immediately work for me as written.
+So I started using OpenCV for my [Computer Vision](https://web.engr.oregonstate.edu/~sinisa/courses/OSU/CS556/CS556.html) class, but I didn't want to give up my OpenGL based framework, and since I had such a hard time finding any hints on how to convert OpenCV Images to OpenGL textures, I'm going to post the technique I used here.  What I did eventually find was [this](http://stefanix.net/opencv-and-opengl), which didn't immediately work for me as written.
 
 So OpenCV images are stored in these IplImage structs, and they're actually pretty great because they load just about anything
 

@@ -5,7 +5,7 @@ format:
   html:
     code-line-numbers: true
 editor: visual
-date: "2011-02-10"
+date: "2010-01-12"
 categories: [CUDA, OpenGL]
 ---
 
@@ -21,27 +21,26 @@ Fortunately there is a workaround called Texture Buffer Objects, which I like to
 
 Test.cpp
 
-    [sourcecode language="cpp"]
+``` cpp
+//CUDA graphics resource
+cudaGraphicsResource *resources[1];
 
-    //CUDA graphics resource
-    cudaGraphicsResource *resources[1];
+GLuint pbo;
+GLuint tbo_tex;
 
-    GLuint pbo;
-    GLuint tbo_tex;
+static GLuint width  = 512;
+static GLuint height = 512;
 
-    static GLuint width  = 512;
-    static GLuint height = 512;
-
-    void init_cuda()
-    {
+void init_cuda()
+{
     //Create your Pixel Buffer Object
-    glGenBuffers(1, &amp;pbo);
+    glGenBuffers(1, &pbo);
     glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, pbo);
     glBufferData(GL_PIXEL_UNPACK_BUFFER_ARB, width*height*sizeof(float4), NULL, GL_DYNAMIC_DRAW);
     glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
 
     //Create your Texture
-    glGenTextures(1, &amp;_tbo_tex);
+    glGenTextures(1, &_tbo_tex);
     glBindTexture(GL_TEXTURE_BUFFER_EXT, tbo_tex); //bind Texture
 
     //Attach Pixel Buffer Object to the Texture
@@ -59,7 +58,7 @@ Test.cpp
     cudaStream_t cuda_stream;
 
     //Create CUDA stream
-    cudaStreamCreate(&amp;cuda_stream);
+    cudaStreamCreate(&cuda_stream);
 
     //Map the graphics resource to the CUDA stream
     cudaGraphicsMapResources(1, resources, cuda_stream);
@@ -72,17 +71,17 @@ Test.cpp
 
     //Destroy the CUDA stream
     cudaStreamDestroy(cuda_stream);
-    }
+}
 
-    void cuda_test()    //Call this in your draw loop to animate
-    {
+void cuda_test()    //Call this in your draw loop to animate
+{
     dim3 blockSize(16, 16);
     dim3 gridSize(width / blockSize.x, height / blockSize.y);
 
     cudaStream_t cuda_stream;
 
     //Create CUDA stream
-    cudaStreamCreate(&amp;cuda_stream);
+    cudaStreamCreate(&cuda_stream);
 
     //Map the graphics resource to the CUDA stream
     cudaGraphicsMapResources(1, resources, cuda_stream);
@@ -95,90 +94,85 @@ Test.cpp
 
     //Destroy the CUDA stream
     cudaStreamDestroy(cuda_stream);
-    }
-
-    [/sourcecode]
+}
+```
 
 Test.cu
+``` cpp
+#ifndef _TEST_CU_
+#define _TEST_CU_
 
-    [sourcecode language="cpp"]
-    #ifndef _TEST_CU_
-    #define _TEST_CU_
+#include
+#include
+#include
 
-    #include
-    #include
-    #include
+float4 *cuda_data = NULL;
 
-    float4 *cuda_data = NULL;
-
-    extern "C" void map_texture(cudaGraphicsResource *resource, int w, int h)
-    {
+extern "C" void map_texture(cudaGraphicsResource *resource, int w, int h)
+{
     size_t size;
-    cudaGraphicsResourceGetMappedPointer((void **)(&amp;cuda_data), &amp;size, resource);
-    }
+    cudaGraphicsResourceGetMappedPointer((void **)(&cuda_data), &size, resource);
+}
 
-    __global__ void test_kernel(float4 *cuda_data, int width, int height, int frame_counter)
-    {
+__global__ void test_kernel(float4 *cuda_data, int width, int height, int frame_counter)
+{
     uint x = __umul24(blockIdx.x, blockDim.x) + threadIdx.x;
     uint y = __umul24(blockIdx.y, blockDim.y) + threadIdx.y;
     uint i = __umul24(y, width) + x;
 
-    if((x &lt; width) &amp;&amp; (y &lt; height))
+    if((x < width) && (y < height))
     {
-    //Create a checkerboard pattern with 32x32 pixel squares
-    cuda_data[i] = ((((x+frame_counter)/32 + (y+frame_counter)/32 ) &amp; (int)(0x1)) == 0) ? make_float4(1.0, 1.0, 1.0, 1.0) : make_float4(0.0, 0.0, 0.0, 1.0);
+        //Create a checkerboard pattern with 32x32 pixel squares
+        cuda_data[i] = ((((x+frame_counter)/32 + (y+frame_counter)/32 ) & (int)(0x1)) == 0) ? make_float4(1.0, 1.0, 1.0, 1.0) : make_float4(0.0, 0.0, 0.0, 1.0);
     }
-    }
+}
 
-    static int frame_counter = 0;
+static int frame_counter = 0;
 
-    extern "C" void test_cuda(int width, int height, dim3 blockSize, dim3 gridSize, cudaStream_t &amp;cuda_stream)
-    {
-    test_kernel&lt;&lt;&gt;&gt;(cuda_data, width, height, frame_counter);
+extern "C" void test_cuda(int width, int height, dim3 blockSize, dim3 gridSize, cudaStream_t &cuda_stream)
+{
+    test_kernel<<>>(cuda_data, width, height, frame_counter);
     frame_counter++;
-    }
+}
 
-    #endif
-
-    [/sourcecode]
+#endif
+```
 
 Since there is no fixed function functionality for drawing texture buffer objects you must write a shader for displaying your buffer, which is pretty easy to do as seen below.
 
 tbo_shader.glsl
+``` cpp
+///////////////////////////////////////////////////////////////////////////////
+VERTEX
+///////////////////////////////////////////////////////////////////////////////
 
-    [sourcecode language="cpp"]
-    ///////////////////////////////////////////////////////////////////////////////
-    VERTEX
-    ///////////////////////////////////////////////////////////////////////////////
+varying vec2 st;
 
-    varying vec2 st;
-
-    void main()
-    {
+void main()
+{
     st = gl_MultiTexCoord0.xy;
     gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-    }
+}
 
-    ///////////////////////////////////////////////////////////////////////////////
-    FRAGMENT
-    ///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+FRAGMENT
+///////////////////////////////////////////////////////////////////////////////
 
-    #version 120
-    #extension GL_EXT_gpu_shader4 : enable
+#version 120
+#extension GL_EXT_gpu_shader4 : enable
 
-    varying vec2 st;
+varying vec2 st;
 
-    uniform samplerBuffer buffer;
-    uniform ivec2 dim;
+uniform samplerBuffer buffer;
+uniform ivec2 dim;
 
-    void main()
-    {
+void main()
+{
     int i = int(st.x * float(dim.x));
     int j = int(st.y * float(dim.y));
 
     gl_FragData[0] = texelFetch(buffer, i+dim.x*j);
-    }
-
-    [/sourcecode]
+}
+```
 
 Of course, there is no reason to display the buffer if your just doing computations on it, and there is no reason you can't use this technique on Vertex or other buffers. And finally, I don't have much CUDA experience so I can't guarantee that I'm not doing anything suboptimal in the above code. I would also recommend wrapping all the CUDA functions cutilSafeCall functions.

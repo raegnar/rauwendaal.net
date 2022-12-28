@@ -7,6 +7,7 @@ format:
 editor: visual
 date: "2013-02-09"
 categories: [GLSL, OpenGL]
+description: "Video of a real-time voxel animation demo."
 ---
  
 {{< video https://www.youtube.com/embed/logYj5nnki4 >}}

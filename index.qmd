@@ -1,13 +1,14 @@
 ---
-title: "rauwendaal.net"
+# title: "rauwendaal.net"
 listing:
+  type: default
   contents: posts
   sort: "date desc"
-  type: default
   categories: true
   sort-ui: false
   filter-ui: false
   feed: true
+  fields: [image, date, title, description]
 page-layout: full
 title-block-banner: true
 ---

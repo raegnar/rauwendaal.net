@@ -3,11 +3,12 @@ project:
 
 website:
   title: "rauwendaal.net"
+  site-url: "https://rauwendaal.net"
   navbar:
     right:
       - about.qmd
       - blog.qmd
-      - pubs.qmd
+      - publications.qmd
       - icon: github
         href: https://github.com/
       - icon: twitter
@@ -16,8 +17,8 @@ format:
   html:
     theme: litera
     css: styles.css
-execute:
-  freeze: auto
+# execute:
+#   freeze: auto
 
 
 

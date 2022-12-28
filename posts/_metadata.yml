@@ -6,3 +6,17 @@ freeze: true
 
 # Enable banner style title blocks
 title-block-banner: true
+
+toc: true
+toc-title: "Table of Contents"
+toc-location: left
+toc-depth: 4
+
+
+#default author
+author:
+  # - name: Randall Rauwendaal
+  - url: https://rauwendaal.net
+
+#citation stuff
+citation: true

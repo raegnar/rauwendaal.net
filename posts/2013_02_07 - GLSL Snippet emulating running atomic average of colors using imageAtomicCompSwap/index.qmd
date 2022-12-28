@@ -9,7 +9,7 @@ date: "2013-02-07"
 categories: [GLSL, OpenGL]
 ---
 
-This is basically straight out of the \[[Crassin & Greene](https://rauwendaal.net/2013/02/#CG)\] chapter from the excellent [OpenGL Insights](http://openglinsights.com/)
+This is basically straight out of the \[[Crassin & Greene](#crassin-and-greene)\] chapter from the excellent [OpenGL Insights](http://openglinsights.com/)
 book, which calculates a running average for a RGB voxel color and
 stores it into a RGBA8 texture (using the alpha component as an access
 count).  But for whatever reason when I dropped their GLSL snippet into
@@ -68,6 +68,6 @@ and multiply by 255 when unpacking.  This method should work with up to
 255 threads attempting to write to the same voxel location.
 
 **References**
-\[Crassin & Greene\] Octree-Based Sparse Voxelization Using the GPU Hardware Rasterizer [http://www.seas.upenn.edu/%7Epcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf](http://www.seas.upenn.edu/~pcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf)
+[\[Crassin & Greene\]]{#crassin-and-greene} Octree-Based Sparse Voxelization Using the GPU Hardware Rasterizer [http://www.seas.upenn.edu/%7Epcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf](http://www.seas.upenn.edu/~pcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf)
 
  

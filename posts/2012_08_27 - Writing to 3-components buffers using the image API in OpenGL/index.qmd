@@ -7,6 +7,8 @@ format:
 editor: visual
 date: "2012-08-27"
 categories: [GLSL, OpenGL]
+sidebar:
+  contents: auto
 ---
 
 As I\'ve describe in detail in another blogpost, atomic counters used in conjunction with the image API and indirect draw buffers can be an excellent and highly performant alternative/replacement to the `transformFeedback` mechanism (oh wait, I still haven\'t published that previous blogpost... and performant is not actually a real word).
