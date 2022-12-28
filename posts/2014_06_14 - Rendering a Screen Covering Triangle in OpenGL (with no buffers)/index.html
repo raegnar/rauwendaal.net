@@ -128,7 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -150,8 +150,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>  
   <li class="dropdown-header">
  <span class="menu-text">blog.qmd</span></li>
-  <li class="dropdown-header">
- <span class="menu-text">pubs.qmd</span></li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../publications.html">
+ <span class="menu-text">Publications</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img">
 </i> 
@@ -169,7 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)</h1>
@@ -203,8 +205,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -243,7 +249,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{rauwendaal2014,
+  author = {Randall Rauwendaal},
+  title = {Rendering a {Screen} {Covering} {Triangle} in {OpenGL} (with
+    No~Buffers)},
+  date = {2014-06-14},
+  url = {https://rauwendaal.net/posts/2014_06_14 - Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-rauwendaal2014" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+Randall Rauwendaal. 2014. <span>“Rendering a Screen Covering Triangle in
+OpenGL (with No&nbsp;Buffers).”</span> June 14, 2014. <a href="https://rauwendaal.net/posts/2014_06_14 - Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)">https://rauwendaal.net/posts/2014_06_14
+- Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)</a>.
+</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

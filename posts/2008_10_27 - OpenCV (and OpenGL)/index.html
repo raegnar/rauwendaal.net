@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Randall Rauwendaal">
-<meta name="dcterms.date" content="2014-08-09">
+<meta name="dcterms.date" content="2008-10-27">
 
-<title>rauwendaal.net - Rendering Volume Filling Triangles in OpenGL (with no&nbsp;buffers)</title>
+<title>rauwendaal.net - OpenCV (and OpenGL)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -174,9 +174,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Rendering Volume Filling Triangles in OpenGL (with no&nbsp;buffers)</h1>
+      <h1 class="title">OpenCV (and OpenGL)</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">GLSL</div>
+                <div class="quarto-category">OpenCV</div>
                 <div class="quarto-category">OpenGL</div>
               </div>
                   </div>
@@ -195,7 +195,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 9, 2014</p>
+        <p class="date">October 27, 2008</p>
       </div>
     </div>
     
@@ -217,51 +217,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p>This is the promised follow-up to <a href="https://rauwendaal.net/2014/06/14/rendering-a-screen-covering-triangle-in-opengl/" title="Rendering a Screen Covering Triangle in OpenGL (with no buffers)">Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)</a>, except this time the goal is to write a shader that accesses every location in a 3d texture (volume). &nbsp;We use the same screen covering trick as before to draw a triangle to cover a viewport match to the X and Y dimensions of the volume, and we use instanced rendering to draw repeated triangles for each layer in the Z-dimension.</p>
-<p>The vertex shader looks the same as before with the addition of the <code>instanceID</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource glsl number-lines code-with-copy"><code class="sourceCode glsl"><span id="cb1-1"><a href="#cb1-1"></a><span class="dt">flat</span> <span class="dt">out</span> <span class="dt">int</span> instanceID<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="dt">void</span> <span class="fu">main</span><span class="op">()</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="op">{</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>  <span class="dt">float</span> x <span class="op">=</span> <span class="op">-</span><span class="fl">1.0</span> <span class="op">+</span> <span class="dt">float</span><span class="op">((</span><span class="bu">gl_VertexID</span> <span class="op">&amp;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="dv">2</span><span class="op">);</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>  <span class="dt">float</span> y <span class="op">=</span> <span class="op">-</span><span class="fl">1.0</span> <span class="op">+</span> <span class="dt">float</span><span class="op">((</span><span class="bu">gl_VertexID</span> <span class="op">&amp;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="dv">1</span><span class="op">);</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>  instanceID&nbsp; <span class="op">=</span> <span class="bu">gl_InstanceID</span><span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>  <span class="bu">gl_Position</span> <span class="op">=</span> <span class="dt">vec4</span><span class="op">(</span>x<span class="op">,</span> y<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The fragment shader can then recover the voxel coordinates from <code>gl_FragCoord</code> and the <code>instanceID</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource glsl number-lines code-with-copy"><code class="sourceCode glsl"><span id="cb2-1"><a href="#cb2-1"></a><span class="dt">flat</span> <span class="dt">in</span> <span class="dt">int</span> instanceID<span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="dt">void</span> <span class="fu">main</span><span class="op">()</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="op">{</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  <span class="dt">ivec3</span> voxelCoord <span class="op">=</span> <span class="dt">ivec3</span><span class="op">(</span><span class="bu">gl_FragCoord</span><span class="op">.</span><span class="fu">xy</span><span class="op">,</span> instanceID<span class="op">);</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">voxelOperation</span><span class="op">(</span>voxelCoord<span class="op">);</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Very similar to drawing the single screen covering triangle, we set our viewport to the XY-dimensions of the volume, bind a junk VAO to make certain graphics drivers happy, and call <code>glDrawArraysInstanced</code> with the Z-dimension of the volume, so that we draw a triangle per-slice of the volume.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c++ number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a>glViewport<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> width<span class="op">,</span> height<span class="op">);</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>glBindVertexArray<span class="op">(</span>junkVAO<span class="op">);</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>glDrawArraysInstanced<span class="op">(</span>GL_TRIANGLE_STRIP<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> depth<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Which would look sort of like the following:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://randallr.files.wordpress.com/2014/08/volumefillingtriangles.png"><img src="https://randallr.files.wordpress.com/2014/08/volumefillingtriangles.png?w=271&amp;h=271" class="img-fluid figure-img" alt="Volume Filling Triangles"></a></p>
-</figure>
-</div>
-<p>This can be useful for quickly processing a volume. Initially, I used this as an OpenGL 4.2 fallback (instead of compute shaders) so that I could still use the NSight debugger, until I realized this approach was actually outperforming the compute shader. Of course, when to use compute shaders, and how to use them effectively deserves a post of its own.</p>
+<p>So I started using OpenCV for my&nbsp;<a href="https://web.engr.oregonstate.edu/~sinisa/courses/OSU/CS556/CS556.html">Computer Vision</a> class, but I didn’t want to give up my OpenGL based framework, and since I had such a hard time finding any hints on how to convert OpenCV Images to OpenGL textures, I’m going to post the technique I used here.&nbsp; What I did eventually find was&nbsp;<a href="http://stefanix.net/opencv-and-opengl">this</a>, which didn’t immediately work for me as written.</p>
+<p>So OpenCV images are stored in these&nbsp;IplImage&nbsp;structs, and they’re actually pretty great because they load just about anything</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a>IplImage <span class="op">*</span>image <span class="op">=</span> cvLoadImage<span class="op">(</span><span class="st">"filename"</span><span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>So after you create you OpenCV Image, how do you get an OpenGL texture.&nbsp; Well, OpenCV images are stored as unsigned bytes so so you’re going to want your texture<em>type</em> to be&nbsp;GL_UNSIGNED_BYTE, and most of the other parameters&nbsp; to pass to&nbsp;glTexImage2D&nbsp;come right out of the&nbsp;IplImage&nbsp;struct, the only thing to be wary of is swapping the RGB colors, if you don’t, red will look blue, and blue will look red.&nbsp; So be sure to set&nbsp;<em>internalFormat</em> to&nbsp;GL_RGB, and format to&nbsp;GL_BGR&nbsp;like so</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a>glTexImage2D<span class="op">(</span>GL_TEXTURE_2D<span class="op">,</span>        <span class="co">//target</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dv">0</span><span class="op">,</span>                    <span class="co">//level</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GL_RGB<span class="op">,</span>               <span class="co">//internalFormat</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image<span class="op">-&gt;</span>width<span class="op">,</span>         <span class="co">//width</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image<span class="op">-&gt;</span>height<span class="op">,</span>        <span class="co">//height</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dv">0</span><span class="op">,</span>                    <span class="co">//border</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GL_BGR<span class="op">,</span>               <span class="co">//format</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GL_UNSIGNED_BYTE<span class="op">,</span>     <span class="co">//type</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image<span class="op">-&gt;</span>imageData<span class="op">);</span>    <span class="co">//pointer to image data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Of course, this only works if your Image is color, if your Image is grayscale your going to want to change&nbsp;GL_BGR&nbsp;to&nbsp;GL_LUMINANCE</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a>glTexImage2D<span class="op">(</span>GL_TEXTURE_2D<span class="op">,</span>        <span class="co">//target</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dv">0</span><span class="op">,</span>                    <span class="co">//level</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GL_RGB<span class="op">,</span>               <span class="co">//internalFormat</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image<span class="op">-&gt;</span>width<span class="op">,</span>         <span class="co">//width</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image<span class="op">-&gt;</span>height<span class="op">,</span>        <span class="co">//height</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dv">0</span><span class="op">,</span>                    <span class="co">//border</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GL_LUMINANCE<span class="op">,</span>         <span class="co">//format</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GL_UNSIGNED_BYTE<span class="op">,</span>     <span class="co">//type</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image<span class="op">-&gt;</span>imageData<span class="op">);</span>    <span class="co">//pointer to image data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And you could probably change the internal format of the OpenGL texture as well, but I don’t presume to know what you want to do with this.&nbsp; And one more snippet for good measure, this time loading a color image and converting it to a gray scale image all in OpenCV.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a>IplImage <span class="op">*</span>color_image <span class="op">=</span> cvLoadImage<span class="op">(</span><span class="st">"filename"</span><span class="op">);</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>IplImage <span class="op">*</span>grayscale <span class="op">=</span> cvCreateImage<span class="op">(</span>cvGetSize<span class="op">(</span>color_image<span class="op">),</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>cvCvtColor<span class="op">(</span>color_image<span class="op">,</span> grayscale<span class="op">,</span> CV_BGR2GRAY<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{rauwendaal2014,
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{rauwendaal2008,
   author = {Randall Rauwendaal},
-  title = {Rendering {Volume} {Filling} {Triangles} in {OpenGL} (with
-    No~Buffers)},
-  date = {2014-08-09},
-  url = {https://rauwendaal.net/posts/2014_08_09 - Rendering Volume Filling Triangles in OpenGL (with no&nbsp;buffers)},
+  title = {OpenCV (and {OpenGL)}},
+  date = {2008-10-27},
+  url = {https://rauwendaal.net/posts/2008_10_27 - OpenCV (and OpenGL)},
   langid = {en}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-rauwendaal2014" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-Randall Rauwendaal. 2014. <span>“Rendering Volume Filling Triangles in
-OpenGL (with No&nbsp;Buffers).”</span> August 9, 2014. <a href="https://rauwendaal.net/posts/2014_08_09 - Rendering Volume Filling Triangles in OpenGL (with no&nbsp;buffers)">https://rauwendaal.net/posts/2014_08_09
-- Rendering Volume Filling Triangles in OpenGL (with no&nbsp;buffers)</a>.
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-rauwendaal2008" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+Randall Rauwendaal. 2008. <span>“OpenCV (and OpenGL).”</span> October
+27, 2008. <a href="https://rauwendaal.net/posts/2008_10_27 - OpenCV (and OpenGL)">https://rauwendaal.net/posts/2008_10_27
+- OpenCV (and OpenGL)</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

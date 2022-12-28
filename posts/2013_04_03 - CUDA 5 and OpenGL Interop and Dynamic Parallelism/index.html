@@ -128,7 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -150,8 +150,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>  
   <li class="dropdown-header">
  <span class="menu-text">blog.qmd</span></li>
-  <li class="dropdown-header">
- <span class="menu-text">pubs.qmd</span></li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../publications.html">
+ <span class="menu-text">Publications</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img">
 </i> 
@@ -169,7 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">CUDA 5 and OpenGL Interop and Dynamic&nbsp;Parallelism</h1>
@@ -204,8 +206,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of Contents</h2>
+   
+  <ul>
+  <li><a href="#the-good-news" id="toc-the-good-news" class="nav-link active" data-scroll-target="#the-good-news">The good news…</a></li>
+  <li><a href="#the-bad-news" id="toc-the-bad-news" class="nav-link" data-scroll-target="#the-bad-news">The bad news…</a></li>
+  <li><a href="#opengl-interop" id="toc-opengl-interop" class="nav-link" data-scroll-target="#opengl-interop">OpenGL Interop</a></li>
+  </ul>
+</nav>
+</nav>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -250,7 +264,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{rauwendaal2013,
+  author = {Randall Rauwendaal},
+  title = {CUDA 5 and {OpenGL} {Interop} and {Dynamic~Parallelism}},
+  date = {2013-04-03},
+  url = {https://rauwendaal.net/posts/2013_04_03 - CUDA 5 and OpenGL Interop and Dynamic Parallelism},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-rauwendaal2013" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+Randall Rauwendaal. 2013. <span>“CUDA 5 and OpenGL Interop and
+Dynamic&nbsp;Parallelism.”</span> April 3, 2013. <a href="https://rauwendaal.net/posts/2013_04_03 - CUDA 5 and OpenGL Interop and Dynamic Parallelism">https://rauwendaal.net/posts/2013_04_03
+- CUDA 5 and OpenGL Interop and Dynamic Parallelism</a>.
+</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

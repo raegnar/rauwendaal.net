@@ -2,8 +2,6 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/post-with-code/index.html",
-      "/posts/welcome/index.html",
       "/posts/2014_08_09 - Rendering Volume Filling Triangles in OpenGL (with no buffers)/index.html",
       "/posts/2014_06_14 - Rendering a Screen Covering Triangle in OpenGL (with no buffers)/index.html",
       "/posts/2014_05_21 - Readings on physically-based rendering/index.html",
@@ -20,9 +18,9 @@
       "/posts/2012_08_06 - OpenGL 4.3 released/index.html",
       "/posts/2012_07_18 - OpenGL should support loading shader files/index.html",
       "/posts/2011_12_02 - Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes/index.html",
-      "/posts/2011_02_10 - How to use CUDA 3.0's new Graphics Interoperability API with OpenGL/index.html",
-      "/posts/2011_02_10 - OpenCV and OpenGL/index.html",
-      "/posts/2012_06_15 - GLSL Sign Function/index.html"
+      "/posts/2012_06_15 - GLSL Sign Function/index.html",
+      "/posts/2010_01_12 - How to use CUDA 3.0's new Graphics Interoperability API with OpenGL/index.html",
+      "/posts/2008_10_27 - OpenCV (and OpenGL)/index.html"
     ]
   }
 ]
