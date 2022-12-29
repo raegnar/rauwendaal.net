@@ -115,8 +115,48 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<section id="hybrid-computational-voxelization-using-the-graphics-pipeline" class="level1">
+<h1>Hybrid&nbsp;Computational&nbsp;Voxelization Using&nbsp;the&nbsp;Graphics&nbsp;Pipeline</h1>
+<p><img src="voxeldragon.png" class="img-fluid" alt="sponzaNice" width="200"> <strong>Authors:</strong> <strong>Randall Rauwendaal</strong>&nbsp;<br>
+<em>Oregon State University</em></p>
+<p>Mike Bailey<br>
+<em>Oregon State University</em></p>
+<p><strong>Journal</strong> <a href="https://jcgt.org/">Journal of Computer Graphics Techniques</a></p>
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<p>This thesis presents an efficient computational voxelization approach that utilizes the graphics pipeline. Our approach is hybrid in that it performs a precise gap-free computational voxelization, employs fixed-function components of the GPU, and utilizes the stages of the graphics pipeline to improve parallelism. This approach makes use of the latest features of OpenGL and fully supports both conservative and thin voxelization. In contrast to other computational voxelization approaches, this approach is implemented entirely in OpenGL, and achieves both triangle and fragment parallelism through its use of both the geometry and fragment shaders. A novel approach utilizing the graphics pipeline to complement geometric triangle intersection computations is presented. By exploiting features of the existing graphics pipeline we are able to rapidly compute accurate scene voxelization in a manner that integrates well with existing OpenGL applications, is robust across many different models, and eschews the need for complex work/load-balancing schemes.</p>
+</section>
+<section id="downloads" class="level2">
+<h2 class="anchored" data-anchor-id="downloads">Downloads</h2>
+<p><a href="hybridvoxelization.pdf">Full-Text PDF</a> (6.4 MB)</p>
+<p><a href="code.zip">GLSL Code</a> (11 kB)</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<p><a href="https://jcgt.org/published/0002/01/02/">Journal of Computer Graphics Techniques page</a></p>
+</section>
+<section id="citation" class="level2">
+<h2 class="anchored" data-anchor-id="citation">Citation</h2>
+<p><strong>R. Rauwendaal</strong> and M. Bailey, Hybrid Computational Voxelization Using the Graphics Pipeline, <em>Journal of Computer Graphics Techniques (JCGT)</em>, vol.&nbsp;2, no. 1, 15-37, 2013. Available online <a href="http://jcgt.org/published/0002/01/02/">http://jcgt.org/published/0002/01/02/</a>.</p>
+</section>
+<section id="bibtex" class="level2">
+<h2 class="anchored" data-anchor-id="bibtex">Bibtex</h2>
+<pre><code>@article{Rauwendaal2013Voxel,
+  author  = {Randall Rauwendaal and Mike Bailey},
+  title   = {Hybrid Computational Voxelization Using the Graphics Pipeline},  
+  year    = {2013},
+  month   = {March},
+  day     = {18},
+  journal = {Journal of Computer Graphics Techniques (JCGT)},
+  volume  = {2},
+  number  = {1},
+  pages   = {15--37},
+  url     = {http://jcgt.org/published/0002/01/02/}
+}</code></pre>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
