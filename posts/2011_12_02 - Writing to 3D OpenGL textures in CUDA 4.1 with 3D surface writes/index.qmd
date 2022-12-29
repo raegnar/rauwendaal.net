@@ -55,7 +55,7 @@ glBindTexture(GL_TEXTURE_3D, 0);
 
 ### Step 2: Register the texture as an "image" with CUDA {#step-2}
 
-This is done with cudaGraphicsGLRegisterImage, just make sure you specify the cudaGraphicsRegisterFlagsSurfaceLoadStore flag as this tell CUDA that you want to bind this image/texture to a surface reference. If you wrap this in a cutilSafeCall and you used an unsupported texture format, you'll probably get an error message. 1
+This is done with ```cudaGraphicsGLRegisterImage```, just make sure you specify the ```cudaGraphicsRegisterFlagsSurfaceLoadStore``` flag as this tell CUDA that you want to bind this image/texture to a surface reference. If you wrap this in a ```cutilSafeCall``` and you used an unsupported texture format, you'll probably get an error message.
 
 ``` cpp
 cutilSafeCall(cudaGraphicsGLRegisterImage(&cuda_image_resource, texID, GL_TEXTURE_3D, cudaGraphicsRegisterFlagsSurfaceLoadStore));
@@ -63,31 +63,31 @@ cutilSafeCall(cudaGraphicsGLRegisterImage(&cuda_image_resource, texID, GL_TEXTUR
 
 ### Step 3: Map the "image" to a CUDA graphics resource {#step-3}
 
-You must map the resource with cudaGraphicsMapResources before you can get a cudaArray from it. 1
+You must map the resource with ```cudaGraphicsMapResources``` before you can get a ```cudaArray``` from it.
 
 ``` cpp
 cutilSafeCall(cudaGraphicsMapResources(1, &cuda_image_resource, 0)); 
 ```
 
-### Step 4: Get a cudaArray pointer from the resource {#step-4}
+### Step 4: Get a ```cudaArray``` pointer from the resource {#step-4}
 
-Unlike with buffers, we won't get a raw pointer from CUDA, instead we get a mapped cudaArray type by calling cudaGraphicsSubResourceGetMappedArray. The cudaArray pointer is only guaranteed valid while "mapped". 1
+Unlike with buffers, we won't get a raw pointer from CUDA, instead we get a mapped ```cudaArray``` type by calling ```cudaGraphicsSubResourceGetMappedArray```. The ```cudaArray``` pointer is only guaranteed valid while "mapped".
 
 ``` cpp
 cutilSafeCall(cudaGraphicsSubResourceGetMappedArray(&cuda_array, cuda_image_resource, 0, 0));
 ```
 
-### Step 5: Pass the cudaArray pointer to the device {#step-5}
+### Step 5: Pass the ```cudaArray``` pointer to the device {#step-5}
 
-Getting the cudaArray pointer is pretty much the last thing we do on the host side. Once we have the pointer we pass it over to the device side code (in the .cu file) 1
+Getting the ```cudaArray``` pointer is pretty much the last thing we do on the host side. Once we have the pointer we pass it over to the device side code (in the .cu file) 1
 
 ``` cpp
 launch_kernel(cuda_image_array, textureDim); 
 ```
 
-### Step 6: Bind the cudaArray to a globally scoped CUDA surface {#step-6}
+### Step 6: Bind the ```cudaArray``` to a globally scoped CUDA surface {#step-6}
 
-Once we have the cudaArray pointer on the device side we bind it to the surface reference. For some reason the surface reference must be declared in the global scope. There is no cudaUnbindSurface, so don't worry about that. 1
+Once we have the ```cudaArray``` pointer on the device side we bind it to the surface reference. For some reason the surface reference must be declared in the global scope. There is no ```cudaUnbindSurface```, so don't worry about that.
 
 ``` cpp
 cutilSafeCall(cudaBindSurfaceToArray(surfaceWrite, cuda_array));
@@ -106,9 +106,9 @@ kernel<<< grid_dim, block_dim >>>(texture_dim);
 cutilCheckMsg("kernel failed");
 ```
 
-### Step 8: Write to the surface using surf3Dwrite {#step-8}
+### Step 8: Write to the surface using ```surf3Dwrite``` {#step-8}
 
-Now that we've launched our CUDA kernel we can write to the globally scoped surface with surf3Dwrite. I got tripped up at this point because I didn't realize that surface memory uses byte addressing. This means that the x-coordinate used to access a surface element needs to be multiplied by the byte size of the element. This is easy to miss if you're going by the SDK sample, since it uses a 1-byte surface of unsigned char's.
+Now that we've launched our CUDA kernel we can write to the globally scoped surface with ```surf3Dwrite```. I got tripped up at this point because I didn't realize that surface memory uses byte addressing. This means that the x-coordinate used to access a surface element needs to be multiplied by the byte size of the element. This is easy to miss if you're going by the SDK sample, since it uses a 1-byte surface of unsigned char's.
 
 ``` cpp
 __global__
@@ -130,7 +130,7 @@ void kernel(dim3 texture_dim)
 
 ### Step 9: Unmap the resource {#step-9}
 
-Make sure to unmap the resource with cudaGraphicsUnmapResources before you try to do anything else with the texture, like use it in OpenGL. If you surface writes were misaligned you'll probably get an "unknown error" when trying to unmap the resource, if it was called with cutilSafeCall. 1
+Make sure to unmap the resource with ```cudaGraphicsUnmapResources``` before you try to do anything else with the texture, like use it in OpenGL. If you surface writes were misaligned you'll probably get an "unknown error" when trying to unmap the resource, if it was called with ```cutilSafeCall```.
 
 ``` cpp
 cutilSafeCall(cudaGraphicsUnmapResources(1, &cuda_image_resource, 0));
@@ -138,7 +138,7 @@ cutilSafeCall(cudaGraphicsUnmapResources(1, &cuda_image_resource, 0));
 
 ### Step 10: Unregister the texture {#step-10}
 
-This is just more cleanup, be sure to unregister the texture/image resource with cudaGraphicsUnregisterResource, you probably don't want to do this until you are done with the texture. 1
+This is just more cleanup, be sure to unregister the texture/image resource with ```cudaGraphicsUnregisterResource```, you probably don't want to do this until you are done with the texture.
 
 ``` cpp
 cutilSafeCall(cudaGraphicsUnregisterResource(cuda_image_resource));
@@ -146,4 +146,4 @@ cutilSafeCall(cudaGraphicsUnregisterResource(cuda_image_resource));
 
 ## Conclusion & Source
 
-This is a feature I've been looking forward to for quite awhile, and I'm very glad to see it implemented in the newest CUDA release. Hopefully I've managed to describe to process clearly enough that other people can avoid the mistakes I made. If you still having trouble make sure you've called cudaGLSetGLDevice. I created a very simple source example from an SDK sample, so hopefully it will work/compile if you extract it in your SDK sample directory (C:\\ProgramData\\NVIDIA Corporation\\NVIDIA GPU Computing SDK 4.1\\C\\src).
+This is a feature I've been looking forward to for quite awhile, and I'm very glad to see it implemented in the newest CUDA release. Hopefully I've managed to describe to process clearly enough that other people can avoid the mistakes I made. If you still having trouble make sure you've called ```cudaGLSetGLDevice```. I created a very simple source example from an SDK sample, so hopefully it will work/compile if you extract it in your SDK sample directory (C:\\ProgramData\\NVIDIA Corporation\\NVIDIA GPU Computing SDK 4.1\\C\\src).
