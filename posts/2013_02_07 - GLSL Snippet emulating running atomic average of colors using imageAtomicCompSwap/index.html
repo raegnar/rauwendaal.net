@@ -248,27 +248,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-27"><a href="#cb1-27"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This works by using the <code>imageAtomicCompSwap</code> function to effectively implement a <a href="http://en.wikipedia.org/wiki/Spinlock">spinlock</a>, which "spins" until all threads trying to access the voxel are done.</p>
 <p>Apparently, the compiler can be quite picky about how things like this are written (don't use "<code>break</code>" statements), see this thread <a href="https://devtalk.nvidia.com/default/topic/526793/opengl/glsl-loop-39-break-39-instruction-not-executed/">GLSL loop 'break' instruction not executed</a> for more information, <del>and I can't guarantee this will work on Kepler or any other architectures</del>, and it definitely works fine for both Fermi and Kepler architectures, if anyone can let me know how it works on an AMD architecture I'll add that information here.</p>
-<p><strong>Edit/Update:</strong> So I had a few mistakes in my previous implementation which weren't very noticeable in a sparsely tessellated model (like the Dwarf), but became much more noticeable as triangle density increased (like in the curtains and plants of the Sponza model). &nbsp;Anyway, it turned out I hadn't considered the effects of the <code>packUnorm4x8</code> and <code>unpackUnorm4x8</code> functions correctly. The <code>packUnorm4x8</code> function clamps input components from 0 to 1, so the count updates were getting discarded, and obviously the average was coming out wrong. &nbsp;Anyway, the solution was to divide by 255 when "packing" the count, and&nbsp;multiply&nbsp;by 255 when unpacking. &nbsp;This method should work with up to 255 threads attempting to write to the same voxel location.</p>
-<p><strong>References</strong> <span id="crassin-and-greene">[Crassin &amp; Greene]</span> Octree-Based Sparse Voxelization Using the GPU Hardware Rasterizer&nbsp;<a href="http://www.seas.upenn.edu/~pcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf">http://www.seas.upenn.edu/%7Epcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf</a></p>
+<p><strong>Edit/Update:</strong></p>
+<p>So I had a few mistakes in my previous implementation which weren't very noticeable in a sparsely tessellated model (like the Dwarf), but became much more noticeable as triangle density increased (like in the curtains and plants of the Sponza model). &nbsp;Anyway, it turned out I hadn't considered the effects of the <code>packUnorm4x8</code> and <code>unpackUnorm4x8</code> functions correctly. The <code>packUnorm4x8</code> function clamps input components from 0 to 1, so the count updates were getting discarded, and obviously the average was coming out wrong.&nbsp;Anyway, the solution was to divide by 255 when "packing" the count, and&nbsp;multiply&nbsp;by 255 when unpacking. &nbsp;This method should work with up to 255 threads attempting to write to the same voxel location.</p>
+<p><strong>References</strong></p>
+<p><span id="crassin-and-greene">[Crassin &amp; Greene]</span> Octree-Based Sparse Voxelization Using the GPU Hardware Rasterizer&nbsp;<a href="http://www.seas.upenn.edu/~pcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf">http://www.seas.upenn.edu/%7Epcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf</a></p>
 <p>&nbsp;</p>
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{rauwendaal2013,
-  author = {Randall Rauwendaal},
-  title = {GLSL {Snippet} Emulating Running Atomic Average of Colors
-    Using {imageAtomicCompSwap}},
-  date = {2013-02-07},
-  url = {https://rauwendaal.net/posts/2013_02_07 - GLSL Snippet emulating running atomic average of colors using imageAtomicCompSwap},
-  langid = {en}
-}
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-rauwendaal2013" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-Randall Rauwendaal. 2013. <span>“GLSL Snippet Emulating Running Atomic
-Average of Colors Using imageAtomicCompSwap.”</span> February 7, 2013.
-<a href="https://rauwendaal.net/posts/2013_02_07 - GLSL Snippet emulating running atomic average of colors using imageAtomicCompSwap">https://rauwendaal.net/posts/2013_02_07
-- GLSL Snippet emulating running atomic average of colors using
-imageAtomicCompSwap</a>.
-</div></div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

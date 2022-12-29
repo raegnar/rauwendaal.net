@@ -240,12 +240,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Which is going to provide in that homogeneous clip space region a position value varying from -1 to 1 and texture coordinates varying from 0 to 1 exactly as OpenGL would expect, all without need to any create any buffers. All you have to do is make single call to <code>glDrawArrays</code> and tell it to render 3 vertices:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c++ number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a>glDrawArrays<span class="op">(</span> GL_TRIANGLES<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">3</span> <span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This draw a triangle that looks like the following:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://randallr.files.wordpress.com/2014/06/glscreenspacetriangle1.png"><img src="https://randallr.files.wordpress.com/2014/06/glscreenspacetriangle1.png?w=705" class="img-fluid figure-img" alt="glScreenSpaceTriangle"></a></p>
-</figure>
-</div>
-<p>It's surprising how often this comes in handy, in a later post I'll describe how to adapt this trick to efficiently access the elements of a 3D texture. &nbsp;It also amuses me greatly that Iñigo Quilez's amazing demo/presentation "<a href="http://www.iquilezles.org/www/material/nvscene2008/nvscene2008.htm">Rendering World's With Two Triangles</a>" could actually be renamed "Renderings Worlds With One Triangle."</p>
+<p><img src="glscreenspacetriangle1.png" class="img-fluid"></p>
+<p>It's surprising how often this comes in handy, in a later post I'll describe how to adapt this trick to efficiently access the elements of a 3D texture. &nbsp;It also amuses me greatly that Iñigo Quilez's amazing demo/presentation "<a href="https://iquilezles.org/articles/nvscene2008/rwwtt.pdf">Rendering World's With Two Triangles</a>" could actually be renamed "Renderings Worlds With One Triangle."</p>
 
 
 

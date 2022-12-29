@@ -216,8 +216,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p>So I fixed some issues I had in my previous implementation of <code>imageAtomicAverageRGBA8</code>, see the <a href="https://rauwendaal.net/2013/02/07/glslrunningaverage/" title="GLSL Snippet: emulating running atomic average of colors using imageAtomicCompSwap">previous post</a>&nbsp;for an explanation of what I got wrong. &nbsp;Reposting&nbsp;the corrected code here, and sorry to anyone who was trying to use the broken version.</p>
-<p>Anyway, original credit for this technique should go to Cyril Crassin, whose implementation in [<a href="https://rauwendaal.net/2013/05/#CG2">Crassin &amp; Greene</a>] deftly avoided the mistakes I made by implementing his own pack/unpack functions. Still not sure why his implementation doesn't work for me though. <strong>Note:</strong> I tried to debug these in the Nsight shader debugger and got the message "Not a debuggable shader", so either it doesn't support atomics (unverified), or these "spinlock" type shaders are too clever for the debugger somehow (for now).</p>
+<p>So I fixed some issues I had in my previous implementation of <code>imageAtomicAverageRGBA8</code>, see the <a href="../../posts/2013_02_07 - GLSL Snippet emulating running atomic average of colors using imageAtomicCompSwap/index.html">previous post</a> (“GLSL Snippet: emulating running atomic average of colors using&nbsp;imageAtomicCompSwap”)&nbsp;for an explanation of what I got wrong. &nbsp;Reposting&nbsp;the corrected code here, and sorry to anyone who was trying to use the broken version.</p>
+<p>Anyway, original credit for this technique should go to Cyril Crassin, whose implementation in [<a href="#crassin-and-greene">Crassin &amp; Greene</a>] deftly avoided the mistakes I made by implementing his own pack/unpack functions. Still not sure why his implementation doesn't work for me though. <strong>Note:</strong> I tried to debug these in the Nsight shader debugger and got the message "Not a debuggable shader", so either it doesn't support atomics (unverified), or these "spinlock" type shaders are too clever for the debugger somehow (for now).</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a><span class="dt">void</span> imageAtomicAverageRGBA8<span class="op">(</span>layout<span class="op">(</span>r32ui<span class="op">)</span> coherent <span class="at">volatile</span> uimage3D voxels<span class="op">,</span> ivec3 coord<span class="op">,</span> vec3 nextVec3<span class="op">)</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="op">{</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a>&nbsp;&nbsp;&nbsp;&nbsp;uint nextUint <span class="op">=</span> packUnorm4x8<span class="op">(</span>vec4<span class="op">(</span>nextVec3<span class="op">,</span><span class="fl">1.0</span><span class="bu">f</span><span class="op">/</span><span class="fl">255.0</span><span class="bu">f</span><span class="op">));</span></span>
@@ -245,22 +245,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-25"><a href="#cb1-25"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nextUint <span class="op">=</span> packUnorm4x8<span class="op">(</span>vec4<span class="op">(</span>average<span class="op">,</span> <span class="op">(</span>count<span class="op">+</span><span class="dv">1</span><span class="op">)/</span><span class="fl">255.0</span><span class="bu">f</span><span class="op">));</span></span>
 <span id="cb1-26"><a href="#cb1-26"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">}</span></span>
 <span id="cb1-27"><a href="#cb1-27"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>References</strong> [Crassin &amp; Greene] Octree-Based Sparse Voxelization Using the GPU Hardware Rasterizer&nbsp;<a href="http://www.seas.upenn.edu/~pcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf">http://www.seas.upenn.edu/%7Epcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf</a></p>
+<p><strong>References</strong></p>
+<p><span id="crassin-and-greene">[Crassin &amp; Greene]</span> Octree-Based Sparse Voxelization Using the GPU Hardware Rasterizer&nbsp;<a href="http://www.seas.upenn.edu/~pcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf">http://www.seas.upenn.edu/%7Epcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf</a></p>
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{rauwendaal2013,
-  author = {Randall Rauwendaal},
-  title = {Fixed {imageAtomicAverageRGBA8}},
-  date = {2013-05-02},
-  url = {https://rauwendaal.net/posts/2013_05_02 - Fixed imageAtomicAverageRGBA8},
-  langid = {en}
-}
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-rauwendaal2013" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-Randall Rauwendaal. 2013. <span>“Fixed imageAtomicAverageRGBA8.”</span>
-May 2, 2013. <a href="https://rauwendaal.net/posts/2013_05_02 - Fixed imageAtomicAverageRGBA8">https://rauwendaal.net/posts/2013_05_02
-- Fixed imageAtomicAverageRGBA8</a>.
-</div></div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

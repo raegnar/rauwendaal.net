@@ -217,24 +217,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p>This is the promised follow-up to <a href="https://rauwendaal.net/2014/06/14/rendering-a-screen-covering-triangle-in-opengl/" title="Rendering a Screen Covering Triangle in OpenGL (with no buffers)">Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)</a>, except this time the goal is to write a shader that accesses every location in a 3d texture (volume). &nbsp;We use the same screen covering trick as before to draw a triangle to cover a viewport match to the X and Y dimensions of the volume, and we use instanced rendering to draw repeated triangles for each layer in the Z-dimension.</p>
+<p>This is the promised follow-up to <a href="../../posts/2014_06_14 - Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)/index.html">Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)</a>, except this time the goal is to write a shader that accesses every location in a 3d texture (volume). &nbsp;We use the same screen covering trick as before to draw a triangle to cover a viewport match to the X and Y dimensions of the volume, and we use instanced rendering to draw repeated triangles for each layer in the Z-dimension.</p>
 <p>The vertex shader looks the same as before with the addition of the <code>instanceID</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource glsl number-lines code-with-copy"><code class="sourceCode glsl"><span id="cb1-1"><a href="#cb1-1"></a><span class="dt">flat</span> <span class="dt">out</span> <span class="dt">int</span> instanceID<span class="op">;</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1"></a>flat out <span class="dt">int</span> instanceID<span class="op">;</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="dt">void</span> <span class="fu">main</span><span class="op">()</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="dt">void</span> main<span class="op">()</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="op">{</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>  <span class="dt">float</span> x <span class="op">=</span> <span class="op">-</span><span class="fl">1.0</span> <span class="op">+</span> <span class="dt">float</span><span class="op">((</span><span class="bu">gl_VertexID</span> <span class="op">&amp;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="dv">2</span><span class="op">);</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>  <span class="dt">float</span> y <span class="op">=</span> <span class="op">-</span><span class="fl">1.0</span> <span class="op">+</span> <span class="dt">float</span><span class="op">((</span><span class="bu">gl_VertexID</span> <span class="op">&amp;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="dv">1</span><span class="op">);</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>  instanceID&nbsp; <span class="op">=</span> <span class="bu">gl_InstanceID</span><span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>  <span class="bu">gl_Position</span> <span class="op">=</span> <span class="dt">vec4</span><span class="op">(</span>x<span class="op">,</span> y<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="dt">float</span> x <span class="op">=</span> <span class="op">-</span><span class="fl">1.0</span> <span class="op">+</span> <span class="dt">float</span><span class="op">((</span>gl_VertexID <span class="op">&amp;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="dt">float</span> y <span class="op">=</span> <span class="op">-</span><span class="fl">1.0</span> <span class="op">+</span> <span class="dt">float</span><span class="op">((</span>gl_VertexID <span class="op">&amp;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>  instanceID&nbsp; <span class="op">=</span> gl_InstanceID<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>  gl_Position <span class="op">=</span> vec4<span class="op">(</span>x<span class="op">,</span> y<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
 <span id="cb1-9"><a href="#cb1-9"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The fragment shader can then recover the voxel coordinates from <code>gl_FragCoord</code> and the <code>instanceID</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource glsl number-lines code-with-copy"><code class="sourceCode glsl"><span id="cb2-1"><a href="#cb2-1"></a><span class="dt">flat</span> <span class="dt">in</span> <span class="dt">int</span> instanceID<span class="op">;</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a>flat in <span class="dt">int</span> instanceID<span class="op">;</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="dt">void</span> <span class="fu">main</span><span class="op">()</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="dt">void</span> main<span class="op">()</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="op">{</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  <span class="dt">ivec3</span> voxelCoord <span class="op">=</span> <span class="dt">ivec3</span><span class="op">(</span><span class="bu">gl_FragCoord</span><span class="op">.</span><span class="fu">xy</span><span class="op">,</span> instanceID<span class="op">);</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">voxelOperation</span><span class="op">(</span>voxelCoord<span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  ivec3 voxelCoord <span class="op">=</span> ivec3<span class="op">(</span>gl_FragCoord<span class="op">.</span>xy<span class="op">,</span> instanceID<span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  voxelOperation<span class="op">(</span>voxelCoord<span class="op">);</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Very similar to drawing the single screen covering triangle, we set our viewport to the XY-dimensions of the volume, bind a junk VAO to make certain graphics drivers happy, and call <code>glDrawArraysInstanced</code> with the Z-dimension of the volume, so that we draw a triangle per-slice of the volume.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource c++ number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a>glViewport<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> width<span class="op">,</span> height<span class="op">);</span></span>
@@ -243,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Which would look sort of like the following:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://randallr.files.wordpress.com/2014/08/volumefillingtriangles.png"><img src="https://randallr.files.wordpress.com/2014/08/volumefillingtriangles.png?w=271&amp;h=271" class="img-fluid figure-img" alt="Volume Filling Triangles"></a></p>
+<p><a href="volumefillingtriangles.png"><img src="volumefillingtriangles.png?w=271&amp;h=271" class="img-fluid figure-img" alt="Volume Filling Triangles"></a></p>
 </figure>
 </div>
 <p>This can be useful for quickly processing a volume. Initially, I used this as an OpenGL 4.2 fallback (instead of compute shaders) so that I could still use the NSight debugger, until I realized this approach was actually outperforming the compute shader. Of course, when to use compute shaders, and how to use them effectively deserves a post of its own.</p>
