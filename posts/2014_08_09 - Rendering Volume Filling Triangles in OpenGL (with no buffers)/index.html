@@ -241,11 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-2"><a href="#cb3-2"></a>glBindVertexArray<span class="op">(</span>junkVAO<span class="op">);</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>glDrawArraysInstanced<span class="op">(</span>GL_TRIANGLE_STRIP<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> depth<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Which would look sort of like the following:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="volumefillingtriangles.png"><img src="volumefillingtriangles.png?w=271&amp;h=271" class="img-fluid figure-img" alt="Volume Filling Triangles"></a></p>
-</figure>
-</div>
+<p><img src="volumefillingtriangles.png" alt="Volume Filling Triangles" width="271" height="271"></p>
 <p>This can be useful for quickly processing a volume. Initially, I used this as an OpenGL 4.2 fallback (instead of compute shaders) so that I could still use the NSight debugger, until I realized this approach was actually outperforming the compute shader. Of course, when to use compute shaders, and how to use them effectively deserves a post of its own.</p>
 
 
