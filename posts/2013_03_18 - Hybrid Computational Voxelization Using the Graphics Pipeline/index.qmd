@@ -10,7 +10,7 @@ categories: [GLSL, OpenGL]
 citation: false
 ---
 
-[![](https://randallr.files.wordpress.com/2013/03/dragonforward.png?w=630&h=196){alt="dragonForward"}](https://randallr.files.wordpress.com/2013/03/dragonforward.png)
+![](dragonforward.png){alt="dragonForward" w=630 h=196}
 
 Got a paper published in the [Journal of Computer Graphics Techniques](https://jcgt.org/), see it [here](http://jcgt.org/published/0002/01/02/)
 

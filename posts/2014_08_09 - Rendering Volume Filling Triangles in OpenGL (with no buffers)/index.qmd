@@ -47,6 +47,6 @@ glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 3, depth);
 
 Which would look sort of like the following:
 
-[![](volumefillingtriangles.png?w=271&h=271){alt="VolumeFillingTriangles" fig-alt="Volume Filling Triangles"}](volumefillingtriangles.png)
+![](volumefillingtriangles.png){alt="VolumeFillingTriangles" fig-alt="Volume Filling Triangles" width="271" height="271"}
 
 This can be useful for quickly processing a volume. Initially, I used this as an OpenGL 4.2 fallback (instead of compute shaders) so that I could still use the NSight debugger, until I realized this approach was actually outperforming the compute shader. Of course, when to use compute shaders, and how to use them effectively deserves a post of its own.
