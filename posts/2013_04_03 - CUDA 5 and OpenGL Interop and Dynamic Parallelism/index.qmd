@@ -13,17 +13,17 @@ I seem to revisit this every time every time Nvidia releases a new version of of
 
 ## The good news...
 
-The old methods still work, the whole register, map, bind, etc... process I described in my now two year old post [Writing to 3D OpenGL textures in CUDA 4.1 with 3D Surface writes](https://rauwendaal.net/2011/12/02/writing-to-3d-opengl-textures-in-cuda-4-1-with-3d-surface-writes/ "Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes") still works.  Ideally, the new version number shouldn\'t introduce any new problems...
+The old methods still work, the whole register, map, bind, etc... process I described in my now two year old post [Writing to 3D OpenGL textures in CUDA 4.1 with 3D Surface writes](../2011_12_02%20-%20Writing%20to%203D%20OpenGL%20textures%20in%20CUDA%204.1%20with%203D%20surface%20writes/index.qmd) still works.  Ideally, the new version number shouldn\'t introduce any new problems...
 
 ## The bad news...
 
-Unfortunately, if you try to write to a globally scoped CUDA surface from a device-side launched kernel (i.e. a dynamic kernel), nothing will happen. You\'ll scratch your head and wonder why code that works
-perfectly fine when launched from the host-side, fails silently when launched device-side.
+Unfortunately, if you try to write to a globally scoped CUDA surface from a device-side launched kernel (i.e. a dynamic kernel), nothing will happen. You\'ll scratch your head and wonder why code that works perfectly fine when launched from the host-side, fails silently when launched device-side.
 
 I only discovered the reason when I decided to read, word for word, the [CUDA Dynamic Parallelism Programming Guide](http://docs.nvidia.com/cuda/pdf/CUDA_Dynamic_Parallelism_Programming_Guide.pdf). On page 14, in the \"Textures & Surfaces\" section is this note:
 
 > **NOTE: The device runtime does not support legacy module-scope (i.e. Fermi-style)**
-> **textures and surfaces within a kernel launched from the device**. Module-scope (legacy) textures may be created from the host and used in device code as for any kernel, but may only be used by a top-level kernel (i.e. the one which is launched from the host).
+> **textures and surfaces within a kernel launched from the device**.
+Module-scope (legacy) textures may be created from the host and used in device code as for any kernel, but may only be used by a top-level kernel (i.e. the one which is launched from the host).
 
 So now the old way of dealing with textures is considered \"Legacy\" but apparently not quite deprecated yet.  So don\'t use them if you plan on using dynamic parallelism. **Additional Note:** if you so much call a function that attempts to perform a \"Fermi-style\" surface write you\'re kernel will fail silently, so I highly recommend removing all \"Fermi-style\" textures and surfaces if you plan on using dynamic
 parallelism.
@@ -41,7 +41,7 @@ So now we have two distinct methods for dealing with textures and surfaces, \"Fe
 
 And while there are some samples showing how the new \"Kepler-style\" textures and surfaces work (see the [Bindless Texture](http://docs.nvidia.com/cuda/cuda-samples/index.html#bindless-texture) sample), all the interop information still seems to target the old \"Fermi-style\" textures and surfaces.  Fortunately, there is some common ground between \"Kepler-style\" and \"Fermi-style\" textures and surfaces, and that common ground is the `cudaArray`.
 
-Really, all we have to do is replace [Step 6](https://rauwendaal.net/2011/12/02/writing-to-3d-opengl-textures-in-cuda-4-1-with-3d-surface-writes/#step6)  (binding a `cudaArray` to a globally scoped surface) from the previous tutorial, with the creation of a `cudaSurfaceObject_t`. That entails creating a cuda resource description (`cudaResourceDesc`), and all we have to do is appropriately set the array portion of the `cudaResourceDesc` to our `cudaArray`, and then use that `cudaResourceDesc` to create our `cudaSurfaceObject_t`, which we can then pass to our kernels, and use to write to our registered and mapped OpenGL textures.
+Really, all we have to do is replace [Step 6](#step6)  (binding a `cudaArray` to a globally scoped surface) from the previous tutorial, with the creation of a `cudaSurfaceObject_t`. That entails creating a cuda resource description (`cudaResourceDesc`), and all we have to do is appropriately set the array portion of the `cudaResourceDesc` to our `cudaArray`, and then use that `cudaResourceDesc` to create our `cudaSurfaceObject_t`, which we can then pass to our kernels, and use to write to our registered and mapped OpenGL textures.
 
 ``` cpp
 // Create the cuda resource description

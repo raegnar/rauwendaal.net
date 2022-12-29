@@ -11,7 +11,7 @@ sidebar:
   style: "docked"
 ---
 
-**Edit:** For how this works in CUDA 5 see my new post [CUDA 5 and OpenGL Interop and Dynamic Parallelism](https://rauwendaal.net/2013/04/03/cuda-5-and-opengl-interop/ "CUDA 5 and OpenGL Interop and Dynamic Parallelism").
+**Edit:** For how this works in CUDA 5 see my new post [CUDA 5 and OpenGL Interop and Dynamic Parallelism](../2013_04_03%20-%20CUDA%205%20and%20OpenGL%20Interop%20and%20Dynamic%20Parallelism/index.qmd).
 
 CUDA 4.1 has been [released](http://developer.nvidia.com/cuda-toolkit-41), and with it, and they've added support for writing to 3D surfaces. And thanks to some pointers from some very helpful Nvidia engineers (thanks [Gernot](http://www.mpi-inf.mpg.de/~gziegler/)!), I was able to write to a 3D OpenGL texture with a CUDA kernel, without having to copy any data between the host and the device.
 

@@ -7,6 +7,7 @@ format:
 editor: visual
 date: "2012-07-18"
 categories: [GLSL, OpenGL]
+citation: false
 ---
 
 OpenGL's shader system is purely string based. Just pass it a couple of strings worth of shader code, compile, link, and go.

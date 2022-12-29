@@ -7,6 +7,7 @@ format:
 editor: visual
 date: "2013-03-18"
 categories: [GLSL, OpenGL]
+citation: false
 ---
 
 [![](https://randallr.files.wordpress.com/2013/03/dragonforward.png?w=630&h=196){alt="dragonForward"}](https://randallr.files.wordpress.com/2013/03/dragonforward.png)

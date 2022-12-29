@@ -9,11 +9,11 @@ date: "2014-08-09"
 categories: [GLSL, OpenGL]
 ---
 
-This is the promised follow-up to [Rendering a Screen Covering Triangle in OpenGL (with no buffers)](https://rauwendaal.net/2014/06/14/rendering-a-screen-covering-triangle-in-opengl/ "Rendering a Screen Covering Triangle in OpenGL (with no buffers)"), except this time the goal is to write a shader that accesses every location in a 3d texture (volume).  We use the same screen covering trick as before to draw a triangle to cover a viewport match to the X and Y dimensions of the volume, and we use instanced rendering to draw repeated triangles for each layer in the Z-dimension.
+This is the promised follow-up to [Rendering a Screen Covering Triangle in OpenGL (with no buffers)](../2014_06_14%20-%20Rendering%20a%20Screen%20Covering%20Triangle%20in%20OpenGL%20(with%20no%C2%A0buffers)/index.qmd), except this time the goal is to write a shader that accesses every location in a 3d texture (volume).  We use the same screen covering trick as before to draw a triangle to cover a viewport match to the X and Y dimensions of the volume, and we use instanced rendering to draw repeated triangles for each layer in the Z-dimension.
 
 The vertex shader looks the same as before with the addition of the `instanceID`.
 
-``` glsl
+``` cpp
 flat out int instanceID;
 
 void main()
@@ -27,7 +27,7 @@ void main()
 
 The fragment shader can then recover the voxel coordinates from `gl_FragCoord` and the `instanceID`.
 
-``` glsl
+``` cpp
 flat in int instanceID;
 
 void main()
@@ -47,6 +47,6 @@ glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 3, depth);
 
 Which would look sort of like the following:
 
-[![](https://randallr.files.wordpress.com/2014/08/volumefillingtriangles.png?w=271&h=271){alt="VolumeFillingTriangles" fig-alt="Volume Filling Triangles"}](https://randallr.files.wordpress.com/2014/08/volumefillingtriangles.png)
+[![](volumefillingtriangles.png?w=271&h=271){alt="VolumeFillingTriangles" fig-alt="Volume Filling Triangles"}](volumefillingtriangles.png)
 
 This can be useful for quickly processing a volume. Initially, I used this as an OpenGL 4.2 fallback (instead of compute shaders) so that I could still use the NSight debugger, until I realized this approach was actually outperforming the compute shader. Of course, when to use compute shaders, and how to use them effectively deserves a post of its own.

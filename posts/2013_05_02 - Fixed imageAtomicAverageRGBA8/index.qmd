@@ -7,17 +7,13 @@ format:
 editor: visual
 date: "2013-05-02"
 categories: [GLSL]
+citation: false
 ---
 
-So I fixed some issues I had in my previous implementation of `imageAtomicAverageRGBA8`, see the [previous post](https://rauwendaal.net/2013/02/07/glslrunningaverage/ "GLSL Snippet: emulating running atomic average of colors using imageAtomicCompSwap") for an explanation of what I got wrong.  Reposting the corrected code here, and sorry to anyone who was trying to use the broken version.
+So I fixed some issues I had in my previous implementation of `imageAtomicAverageRGBA8`, see the [previous post](../2013_02_07%20-%20GLSL%20Snippet%20emulating%20running%20atomic%20average%20of%20colors%20using%20imageAtomicCompSwap/index.qmd) ("GLSL Snippet: emulating running atomic average of colors using imageAtomicCompSwap") for an explanation of what I got wrong.  Reposting the corrected code here, and sorry to anyone who was trying to use the broken version.
 
-Anyway, original credit for this technique should go to Cyril Crassin, whose implementation in \[[Crassin & Greene](https://rauwendaal.net/2013/05/#CG2)\]
-deftly avoided the mistakes I made by implementing his own pack/unpack
-functions. Still not sure why his implementation doesn\'t work for me
-though. **Note:** I tried to debug these in the Nsight
-shader debugger and got the message \"Not a debuggable shader\", so either
-it doesn\'t support atomics (unverified), or these \"spinlock\" type
-shaders are too clever for the debugger somehow (for now).
+Anyway, original credit for this technique should go to Cyril Crassin, whose implementation in \[[Crassin & Greene](#crassin-and-greene)\] deftly avoided the mistakes I made by implementing his own pack/unpack functions. Still not sure why his implementation doesn\'t work for me though. **Note:** I tried to debug these in the Nsight
+shader debugger and got the message \"Not a debuggable shader\", so either it doesn\'t support atomics (unverified), or these \"spinlock\" type shaders are too clever for the debugger somehow (for now).
 
 ``` cpp
 void imageAtomicAverageRGBA8(layout(r32ui) coherent volatile uimage3D voxels, ivec3 coord, vec3 nextVec3)
@@ -50,4 +46,6 @@ void imageAtomicAverageRGBA8(layout(r32ui) coherent volatile uimage3D voxels, iv
 ```
 
 **References**
-\[Crassin & Greene\] Octree-Based Sparse Voxelization Using the GPU Hardware Rasterizer [http://www.seas.upenn.edu/%7Epcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf](http://www.seas.upenn.edu/~pcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf)
+
+[\[Crassin & Greene\]]{#crassin-and-greene} Octree-Based Sparse Voxelization Using the GPU Hardware Rasterizer [http://www.seas.upenn.edu/%7Epcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf](http://www.seas.upenn.edu/~pcozzi/OpenGLInsights/OpenGLInsights-SparseVoxelization.pdf)
+

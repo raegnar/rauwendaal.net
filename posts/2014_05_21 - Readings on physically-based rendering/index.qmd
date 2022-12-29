@@ -7,6 +7,7 @@ format:
 editor: visual
 date: "2014-05-21"
 categories: [GLSL, OpenGL]
+citation: false
 ---
 Another nice collections of links and papers too valuable to lose among all my bookmarks.  This time on physically-based rendering, put together by Kostas Anagnostou ([\@thinkinggamer](https://twitter.com/thinkinggamer)).
 

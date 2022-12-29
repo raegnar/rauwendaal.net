@@ -7,6 +7,7 @@ format:
 editor: visual
 date: "2013-05-21"
 categories: [GLSL, OpenGL]
+citation: false
 ---
 So, a lot has happened. I completed my [Doctorate](https://rauwendaal.net/phd-thesis/),
 almost moved to Norway, but then ended up moving to Canada instead
@@ -14,7 +15,7 @@ almost moved to Norway, but then ended up moving to Canada instead
 where I was very fortunate enough  to have the opportunity to assist a
 new colleague of mine, Masamichi Sugihara ([\@masasugihara](https://twitter.com/masasugihara)), with his publication \"[Layered Reflective Shadow Maps for Voxel-based Indirect Illumination](https://rauwendaal.net/layered-reflective-shadow-maps-for-voxel-based-indirect-illumination/ "Layered Reflective Shadow Maps for Voxel-based Indirect Illumination"),\" which has been accepted to [HPG 2014](http://www.highperformancegraphics.org/2014/program/).
 
-[![](https://randallr.files.wordpress.com/2014/05/layered_reflective_shadow_maps_for_voxel-based_indirect.jpg?w=705){alt=""}](https://randallr.files.wordpress.com/2014/05/layered_reflective_shadow_maps_for_voxel-based_indirect.jpg)\
+![layered_reflective_shadow_maps_for_voxel-based_indirect.jpg?w=705](layered_reflective_shadow_maps_for_voxel-based_indirect.jpg)
 
 Check out the preprint [here](https://software.intel.com/sites/default/files/Layered_Reflective_Shadow_Maps_for_Voxel-based_Indirect.pdf)
 
@@ -33,9 +34,6 @@ Check out the preprint [here](https://software.intel.com/sites/default/files/Lay
 
 ### **Hire Masamichi!**
 
-Due to some rather shortsighted reorganization, Masasmichi is
-currently pursuing employment opportunities that will either; allow him
-to stay in Canada, or return to Japan. If you are interested in hiring a
-top-notch graphics coder, please get in touch.
+Due to some rather shortsighted reorganization, Masasmichi is currently pursuing employment opportunities that will either; allow him to stay in Canada, or return to Japan. If you are interested in hiring a top-notch graphics coder, please get in touch.
 
  
