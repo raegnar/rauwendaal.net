@@ -10,6 +10,10 @@
 
 Realistic (ideally photorealistic) real-time rendering has remained an elusive goal in computer graphics. While photorealistic rendering has certainly been achieved at the expense of tremendous computational resources and corresponding rendering times; real-time rendering typically must accept a great number of compromises to achieve adequate performance, such as aliasing artifacts, the absence of secondary illumination effects such as diffuse inter-reflection and realistic specular reflections, and a lack of geometric detail. This dissertation demonstrates solutions which reduce the computational cost of solving the rendering equation through a series of strategic approximations which are well suited to the massively parallel nature of current consumer GPUs and their integrated filtering hardware. Firstly, we discretize scene geometry, using a novel and highly efficient voxelization technique. From the voxelization, we efficiently generate a hierarchical representation of scene geometry. We then use this hierarchical representation as a proxy for computation of indirect illumination using a technique called Voxel Cone Tracing. Finally we explore the storage of both isotropic and anisotropic functions within our hierarchical scene proxy, and evaluate the usage of low order spherical harmonics as a more suitable approximation of radiance.
 
+## Downloads
+
+[Full-Text PDF](RauwendaalRandallR2014.pdf)
+
 ## Links
 
 [ScholarsArchive\@OSU](http://hdl.handle.net/1957/42266)

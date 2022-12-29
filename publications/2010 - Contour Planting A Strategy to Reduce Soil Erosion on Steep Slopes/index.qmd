@@ -8,9 +8,6 @@ D.S. Long, S.B. Wuest, and J.D. Williams
 **Randall Rauwendaal** and M.J. Bailey\    
 *Oregon State University*  
 
-Marco Salvi\
-*[Advanced Rendering Technology](https://software.intel.com/en-us/intel-rendering-technologies), Intel*
-
 **Conference** International Conference on Precision Agriculture
 
 ## Abstract
@@ -27,7 +24,7 @@ Practices that combine GPS-based guidance for terrain contouring and tillage for
 
 ## Citation
 
-D. S. Long, S. B. Wuest, J. D. Williams, **R. Rauwendaal**, M. J. Bailey, Contour Planting: A Strategy to Reduce Soil Erosion on Steep Slopes, *International Conference on Precision Agriculture*. Available online: http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.175.9623.
+D. S. Long, S. B. Wuest, J. D. Williams, **R. Rauwendaal**, M. J. Bailey, Contour Planting: A Strategy to Reduce Soil Erosion on Steep Slopes, *International Conference on Precision Agriculture*. Available online: [http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.175.9623](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.175.9623).
 
 ## Bibtex
 

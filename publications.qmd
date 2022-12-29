@@ -10,7 +10,7 @@ title: "Publications"
 
 -   T. Morrison and **R. Rauwendaal**, A Comparison of Data Parallel Techniques for High Fidelity Smoke, *Intel Internal Whitepaper*.
 
--   D. S. Long, S. B. Wuest, J. D. Williams, **R. Rauwendaal**, M. J. Bailey, [Contour Planting: A Strategy to Reduce Soil Erosion on Steep Slopes](https://rauwendaal.net/contour-planting-a-strategy-to-reduce-soil-erosion-on-steep-slopes/), *International Conference on Precision Agriculture*. Available online: <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.175.9623>.
+-   D. S. Long, S. B. Wuest, J. D. Williams, **R. Rauwendaal**, M. J. Bailey, [Contour Planting: A Strategy to Reduce Soil Erosion on Steep Slopes](publications/2010%20-%20Contour%20Planting%20A%20Strategy%20to%20Reduce%20Soil%20Erosion%20on%20Steep%20Slopes/index.qmd), *International Conference on Precision Agriculture*. Available online: <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.175.9623>.
 
 -   **R. Rauwendaal** and M. Bailey, Analyzing Terrain Surfaces to Synthesize and Visualize Optimal-Coverage Tractor Paths for Conservation Farming, *Tech Report*. Available online: <http://web.engr.oregonstate.edu/~mjb/WebMjb/Papers/usda.v4.pdf>.
 
@@ -18,4 +18,4 @@ title: "Publications"
 
 -   **R. Rauwendaal**, [Voxel Based Indirect Illumination using Spherical Harmonics](publications/PhD%20-%20Voxel%20Based%20Indirect%20Illumination%20using%20Spherical%20Harmonics/index.qmd), *PhD thesis*, Oregon State University, 2013, Available online: <http://hdl.handle.net/1957/42266>.
 
--   **R. Rauwendaal**, Hybrid Computational Voxelization Using the Graphics Pipeline, *Master's thesis*, Oregon State University, 2012, Available online: <http://hdl.handle.net/1957/35463>.
+-   **R. Rauwendaal**, [Hybrid Computational Voxelization Using the Graphics Pipeline](publications/Masters%20-%20Hybrid%C2%A0Computational%C2%A0Voxelization%20Using%C2%A0the%C2%A0Graphics%C2%A0Pipeline/index.qmd), *Master's thesis*, Oregon State University, 2012, Available online: <http://hdl.handle.net/1957/35463>.
