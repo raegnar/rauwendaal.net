@@ -1,0 +1,43 @@
+# Contour Planting: A Strategy to Reduce Soil Erosion on Steep Slopes
+
+![lrsmdragons](lrsmdragons.png){alt="sponzaNice" width="200"}
+
+D.S. Long, S.B. Wuest, and J.D. Williams
+*Columbia Plateau Conservation Research Center*
+
+**Randall Rauwendaal** and M.J. Bailey\    
+*Oregon State University*  
+
+Marco Salvi\
+*[Advanced Rendering Technology](https://software.intel.com/en-us/intel-rendering-technologies), Intel*
+
+**Conference** International Conference on Precision Agriculture
+
+## Abstract
+
+Practices that combine GPS-based guidance for terrain contouring and tillage for runoff detention have potential to increase water infiltration and reduce runoff. The objective of this study was to investigate contour planting as a means to reduce soil erosion on steep slopes of the Columbia Plateau dryland wheat region. An exploratory field study was conducted on a Ritzville silt loam (coarse-silty, mixed, superactive, mesic Calcidic Haploxerolls) and 0-20 percent slopes. Planting was performed with a deep furrow drill on the contour to a depth of 20 cm. Our results demonsrate that a strip of deep-furrow seeding precisely contoured on the upper shoulder slope should provide sufficient detention storage to capture and hold the runoff from a 100-yr 24-h storm if the contour strip area was approximately 2% of the runoff collection area. This research also examined artificial neural networks for generating routing maps that optimize seeding on precise, GPS-guided contours. A contouring algorithm was evaluated in which the direction of a tractor is determined by contour-based neural activity whereby neurons corresponding to regions of the terrain of similar height to that of the tractor’s current position receive the greatest excitatory input. The contour region, therefore, has the global effect of influencing the whole state space to attract the tractor in the right direction.
+
+## Downloads
+
+[Full-Text PDF](countourplanting.pdf)
+
+## Links
+
+[CiteSeer page](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.175.9623)
+
+## Citation
+
+D. S. Long, S. B. Wuest, J. D. Williams, **R. Rauwendaal**, M. J. Bailey, Contour Planting: A Strategy to Reduce Soil Erosion on Steep Slopes, *International Conference on Precision Agriculture*. Available online: http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.175.9623.
+
+## Bibtex
+
+```
+@inProceedings{Long10contourplanting,
+  author    = {D. S. Long and S. B. Wuest and J. D. Williams and R. Rauwendaal and M. J. Bailey},
+  title     = {Contour Planting: A Strategy to Reduce Soil Erosion on Steep Slopes},  
+  booktitle = {International Conference on Precision Agriculture},
+  year      = {2010},
+  month     = {July},
+  url       = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.175.9623}x
+}
+```

@@ -1,0 +1,36 @@
+# PhD Thesis
+## Voxel Based Indirect Illumination using Spherical Harmonics
+
+![sponzaNice](https://randallr.files.wordpress.com/2013/09/sponzanice.jpg){alt="sponzaNice" width="200"}
+**Authors:** **Randall Rauwendaal**\    
+                                        
+             *Oregon State University*  
+
+## Abstract
+
+This thesis presents an efficient computational voxelization approach that utilizes the graphics pipeline. Our approach is hybrid in that it performs a precise gap-free computational voxelization, employs fixed-function components of the GPU, and utilizes the stages of the graphics pipeline to improve parallelism. This approach makes use of the latest features of OpenGL and fully supports both conservative and thin voxelization. In contrast to other computational voxelization approaches, this approach is implemented entirely in OpenGL, and achieves both triangle and fragment parallelism through its use of both the geometry and fragment shaders. A novel approach utilizing the graphics pipeline to complement geometric triangle intersection computations is presented. By exploiting features of the existing graphics pipeline we are able to rapidly compute accurate scene voxelization in a manner that integrates well with existing OpenGL applications, is robust across many different models, and eschews the need for complex work/load-balancing schemes.
+
+## Links
+
+[ScholarsArchive\@OSU](http://hdl.handle.net/1957/35463)
+
+## Citation
+
+**R. Rauwendaal**, Hybrid Computational Voxelization Using the Graphics Pipeline, Master’s thesis, Oregon State University, 2012. Available online: http://hdl.handle.net/1957/35463.
+
+## Bibtex
+
+```
+@MastersThesis{Rauwendaal2012Masters,
+  author = {Randall Rauwendaal},
+  title  = {Hybrid Computational Voxelization Using the Graphics Pipeline},
+  school = {Oregon State University},
+  year   = {2012},
+  month  = {11},
+  day    = {29},
+  url    = {http://hdl.handle.net/1957/35463}
+}
+```
+
+##Note
+This is functionally the same material presented in the [JCGT paper](http://jcgt.org/published/0002/01/02/) of the same name. I would recommend reading the [JCGT paper](http://jcgt.org/published/0002/01/02/) over the thesis as it incorporates the excellent suggestions from their reviewers.

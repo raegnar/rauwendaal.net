@@ -9,11 +9,7 @@ date: "2013-05-21"
 categories: [GLSL, OpenGL]
 citation: false
 ---
-So, a lot has happened. I completed my [Doctorate](https://rauwendaal.net/phd-thesis/),
-almost moved to Norway, but then ended up moving to Canada instead
-(Victoria, BC). I now work for the Advanced Technology Group at Intel,
-where I was very fortunate enough  to have the opportunity to assist a
-new colleague of mine, Masamichi Sugihara ([\@masasugihara](https://twitter.com/masasugihara)), with his publication \"[Layered Reflective Shadow Maps for Voxel-based Indirect Illumination](https://rauwendaal.net/layered-reflective-shadow-maps-for-voxel-based-indirect-illumination/ "Layered Reflective Shadow Maps for Voxel-based Indirect Illumination"),\" which has been accepted to [HPG 2014](http://www.highperformancegraphics.org/2014/program/).
+So, a lot has happened. I completed my [Doctorate](https://rauwendaal.net/phd-thesis/), almost moved to Norway, but then ended up moving to Canada instead (Victoria, BC). I now work for the Advanced Technology Group at Intel, where I was very fortunate enough  to have the opportunity to assist a new colleague of mine, Masamichi Sugihara ([\@masasugihara](https://twitter.com/masasugihara)), with his publication \"[Layered Reflective Shadow Maps for Voxel-based Indirect Illumination](https://rauwendaal.net/layered-reflective-shadow-maps-for-voxel-based-indirect-illumination/ "Layered Reflective Shadow Maps for Voxel-based Indirect Illumination"),\" which has been accepted to [HPG 2014](http://www.highperformancegraphics.org/2014/program/).
 
 ![layered_reflective_shadow_maps_for_voxel-based_indirect.jpg](layered_reflective_shadow_maps_for_voxel-based_indirect.jpg){width="705"}
 
