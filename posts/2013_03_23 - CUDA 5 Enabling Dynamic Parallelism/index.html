@@ -155,11 +155,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>I finally got a GPU capable of dynamic parallelism, so I finally decided to mess around with CUDA 5. &nbsp;But I discovered a couple of configuration options that are required if you want to enable dynamic parallelism. &nbsp;You'll know you haven't configured things correctly if you attempt to call a kernel from the device and you get the following error message:</p>
+<!-- ![layered_reflective_shadow_maps_for_voxel-based_indirect.jpg?w=705](layered_reflective_shadow_maps_for_voxel-based_indirect.jpg) -->
 <blockquote class="blockquote">
 <p>ptxas : fatal error : Unresolved extern function 'cudaGetParameterBuffer'</p>
 </blockquote>
 <p>Note: this assume you have already selected the appropriate CUDA 5 build customizations for your project</p>
-<p>Open the project project properties 1. Make sure to set "Generate Relocatable Device Code" to <strong>"Yes (-rdc=true)"</strong><a href="https://randallr.files.wordpress.com/2013/03/yes.png"><img src="https://randallr.files.wordpress.com/2013/03/yes.png?w=705" class="img-fluid" alt="yes"></a> 2. Set "code generation" to <strong>"compute_35,sm_3″</strong><a href="https://randallr.files.wordpress.com/2013/03/compute1.png"><img src="https://randallr.files.wordpress.com/2013/03/compute1.png?w=705" class="img-fluid" alt="compute"></a> 3. Finally add <strong>"cudadevrt.lib"</strong> to the CUDA Linker's "Additional Dependencies"<a href="https://randallr.files.wordpress.com/2013/03/cudadevrt.png"><img src="https://randallr.files.wordpress.com/2013/03/cudadevrt.png?w=705" class="img-fluid" alt="cudadevrt"></a></p>
+<p>Open the project project properties 1. Make sure to set "Generate Relocatable Device Code" to <strong>"Yes (-rdc=true)"</strong><img src="yes.png" class="img-fluid" alt="yes" width="705"> 2. Set "code generation" to <strong>"compute_35,sm_3″</strong><img src="compute1.png" class="img-fluid" alt="compute" width="705"> 3. Finally add <strong>"cudadevrt.lib"</strong> to the CUDA Linker's "Additional Dependencies"<img src="cudadevrt.png" class="img-fluid" alt="cudadevrt" width="705"></p>
 
 
 

@@ -215,11 +215,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1">Step 1: Create an OpenGL 3D texture</a></li>
   <li><a href="#step-2" id="toc-step-2" class="nav-link" data-scroll-target="#step-2">Step 2:&nbsp;Register the texture as an “image” with CUDA</a></li>
   <li><a href="#step-3" id="toc-step-3" class="nav-link" data-scroll-target="#step-3">Step 3:&nbsp;Map the “image” to a CUDA graphics resource</a></li>
-  <li><a href="#step-4" id="toc-step-4" class="nav-link" data-scroll-target="#step-4">Step 4:&nbsp;Get a cudaArray pointer from the resource</a></li>
-  <li><a href="#step-5" id="toc-step-5" class="nav-link" data-scroll-target="#step-5">Step 5: Pass the cudaArray pointer to the device</a></li>
-  <li><a href="#step-6" id="toc-step-6" class="nav-link" data-scroll-target="#step-6">Step 6:&nbsp;Bind the cudaArray to a globally scoped CUDA surface</a></li>
+  <li><a href="#step-4" id="toc-step-4" class="nav-link" data-scroll-target="#step-4">Step 4:&nbsp;Get a <code>cudaArray</code> pointer from the resource</a></li>
+  <li><a href="#step-5" id="toc-step-5" class="nav-link" data-scroll-target="#step-5">Step 5: Pass the <code>cudaArray</code> pointer to the device</a></li>
+  <li><a href="#step-6" id="toc-step-6" class="nav-link" data-scroll-target="#step-6">Step 6:&nbsp;Bind the <code>cudaArray</code> to a globally scoped CUDA surface</a></li>
   <li><a href="#step-7" id="toc-step-7" class="nav-link" data-scroll-target="#step-7">Step 7:&nbsp;Call a CUDA kernel</a></li>
-  <li><a href="#step-8" id="toc-step-8" class="nav-link" data-scroll-target="#step-8">Step 8:&nbsp;Write to the surface using surf3Dwrite</a></li>
+  <li><a href="#step-8" id="toc-step-8" class="nav-link" data-scroll-target="#step-8">Step 8:&nbsp;Write to the surface using <code>surf3Dwrite</code></a></li>
   <li><a href="#step-9" id="toc-step-9" class="nav-link" data-scroll-target="#step-9">Step 9: Unmap the resource</a></li>
   <li><a href="#step-10" id="toc-step-10" class="nav-link" data-scroll-target="#step-10">Step 10: Unregister the texture</a></li>
   <li><a href="#conclusion-source" id="toc-conclusion-source" class="nav-link" data-scroll-target="#conclusion-source">Conclusion &amp; Source</a></li>
@@ -275,27 +275,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="step-2" class="level3">
 <h3 class="anchored" data-anchor-id="step-2">Step 2:&nbsp;Register the texture as an “image” with CUDA</h3>
-<p>This is done with cudaGraphicsGLRegisterImage, just make sure you specify the cudaGraphicsRegisterFlagsSurfaceLoadStore flag as this tell CUDA that you want to bind this image/texture to a surface reference. If you wrap this in a cutilSafeCall and you used an unsupported texture format, you’ll probably get an error message. 1</p>
+<p>This is done with <code>cudaGraphicsGLRegisterImage</code>, just make sure you specify the <code>cudaGraphicsRegisterFlagsSurfaceLoadStore</code> flag as this tell CUDA that you want to bind this image/texture to a surface reference. If you wrap this in a <code>cutilSafeCall</code> and you used an unsupported texture format, you’ll probably get an error message.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1"></a>cutilSafeCall<span class="op">(</span>cudaGraphicsGLRegisterImage<span class="op">(&amp;</span>cuda_image_resource<span class="op">,</span> texID<span class="op">,</span> GL_TEXTURE_3D<span class="op">,</span> cudaGraphicsRegisterFlagsSurfaceLoadStore<span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="step-3" class="level3">
 <h3 class="anchored" data-anchor-id="step-3">Step 3:&nbsp;Map the “image” to a CUDA graphics resource</h3>
-<p>You must map the resource with cudaGraphicsMapResources before you can get a cudaArray from it. 1</p>
+<p>You must map the resource with <code>cudaGraphicsMapResources</code> before you can get a <code>cudaArray</code> from it.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1"></a>cutilSafeCall<span class="op">(</span>cudaGraphicsMapResources<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="op">&amp;</span>cuda_image_resource<span class="op">,</span> <span class="dv">0</span><span class="op">));</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="step-4" class="level3">
-<h3 class="anchored" data-anchor-id="step-4">Step 4:&nbsp;Get a cudaArray pointer from the resource</h3>
-<p>Unlike with buffers, we won’t get a raw pointer from CUDA, instead we get a mapped cudaArray type by calling cudaGraphicsSubResourceGetMappedArray. The cudaArray pointer is only guaranteed valid while “mapped”. 1</p>
+<h3 class="anchored" data-anchor-id="step-4">Step 4:&nbsp;Get a <code>cudaArray</code> pointer from the resource</h3>
+<p>Unlike with buffers, we won’t get a raw pointer from CUDA, instead we get a mapped <code>cudaArray</code> type by calling <code>cudaGraphicsSubResourceGetMappedArray</code>. The <code>cudaArray</code> pointer is only guaranteed valid while “mapped”.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1"></a>cutilSafeCall<span class="op">(</span>cudaGraphicsSubResourceGetMappedArray<span class="op">(&amp;</span>cuda_array<span class="op">,</span> cuda_image_resource<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="step-5" class="level3">
-<h3 class="anchored" data-anchor-id="step-5">Step 5: Pass the cudaArray pointer to the device</h3>
-<p>Getting the cudaArray pointer is pretty much the last thing we do on the host side. Once we have the pointer we pass it over to the device side code (in the .cu file) 1</p>
+<h3 class="anchored" data-anchor-id="step-5">Step 5: Pass the <code>cudaArray</code> pointer to the device</h3>
+<p>Getting the <code>cudaArray</code> pointer is pretty much the last thing we do on the host side. Once we have the pointer we pass it over to the device side code (in the .cu file) 1</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1"></a>launch_kernel<span class="op">(</span>cuda_image_array<span class="op">,</span> textureDim<span class="op">);</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="step-6" class="level3">
-<h3 class="anchored" data-anchor-id="step-6">Step 6:&nbsp;Bind the cudaArray to a globally scoped CUDA surface</h3>
-<p>Once we have the cudaArray pointer on the device side we bind it to the surface reference. For some reason the surface reference must be declared in the global scope. There is no cudaUnbindSurface, so don’t worry about that. 1</p>
+<h3 class="anchored" data-anchor-id="step-6">Step 6:&nbsp;Bind the <code>cudaArray</code> to a globally scoped CUDA surface</h3>
+<p>Once we have the <code>cudaArray</code> pointer on the device side we bind it to the surface reference. For some reason the surface reference must be declared in the global scope. There is no <code>cudaUnbindSurface</code>, so don’t worry about that.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1"></a>cutilSafeCall<span class="op">(</span>cudaBindSurfaceToArray<span class="op">(</span>surfaceWrite<span class="op">,</span> cuda_array<span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="step-7" class="level3">
@@ -309,8 +309,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-6"><a href="#cb7-6"></a>cutilCheckMsg<span class="op">(</span><span class="st">"kernel failed"</span><span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="step-8" class="level3">
-<h3 class="anchored" data-anchor-id="step-8">Step 8:&nbsp;Write to the surface using surf3Dwrite</h3>
-<p>Now that we’ve launched our CUDA kernel we can write to the globally scoped surface with surf3Dwrite. I got tripped up at this point because I didn’t realize that surface memory uses byte addressing. This means that the x-coordinate used to access a surface element needs to be multiplied by the byte size of the element. This is easy to miss if you’re going by the SDK sample, since it uses a 1-byte surface of unsigned char’s.</p>
+<h3 class="anchored" data-anchor-id="step-8">Step 8:&nbsp;Write to the surface using <code>surf3Dwrite</code></h3>
+<p>Now that we’ve launched our CUDA kernel we can write to the globally scoped surface with <code>surf3Dwrite</code>. I got tripped up at this point because I didn’t realize that surface memory uses byte addressing. This means that the x-coordinate used to access a surface element needs to be multiplied by the byte size of the element. This is easy to miss if you’re going by the SDK sample, since it uses a 1-byte surface of unsigned char’s.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1"></a>__global__</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="dt">void</span> kernel<span class="op">(</span>dim3 texture_dim<span class="op">)</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="op">{</span></span>
@@ -329,17 +329,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="step-9" class="level3">
 <h3 class="anchored" data-anchor-id="step-9">Step 9: Unmap the resource</h3>
-<p>Make sure to unmap the resource with cudaGraphicsUnmapResources before you try to do anything else with the texture, like use it in OpenGL. If you surface writes were misaligned you’ll probably get an “unknown error” when trying to unmap the resource, if it was called with cutilSafeCall. 1</p>
+<p>Make sure to unmap the resource with <code>cudaGraphicsUnmapResources</code> before you try to do anything else with the texture, like use it in OpenGL. If you surface writes were misaligned you’ll probably get an “unknown error” when trying to unmap the resource, if it was called with <code>cutilSafeCall</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1"></a>cutilSafeCall<span class="op">(</span>cudaGraphicsUnmapResources<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="op">&amp;</span>cuda_image_resource<span class="op">,</span> <span class="dv">0</span><span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="step-10" class="level3">
 <h3 class="anchored" data-anchor-id="step-10">Step 10: Unregister the texture</h3>
-<p>This is just more cleanup, be sure to unregister the texture/image resource with cudaGraphicsUnregisterResource, you probably don’t want to do this until you are done with the texture. 1</p>
+<p>This is just more cleanup, be sure to unregister the texture/image resource with <code>cudaGraphicsUnregisterResource</code>, you probably don’t want to do this until you are done with the texture.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1"></a>cutilSafeCall<span class="op">(</span>cudaGraphicsUnregisterResource<span class="op">(</span>cuda_image_resource<span class="op">));</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="conclusion-source" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion-source">Conclusion &amp; Source</h2>
-<p>This is a feature I’ve been looking forward to for quite awhile, and I’m very glad to see it implemented in the newest CUDA release. Hopefully I’ve managed to describe to process clearly enough that other people can avoid the mistakes I made. If you still having trouble make sure you’ve called cudaGLSetGLDevice. I created a very simple source example from an SDK sample, so hopefully it will work/compile if you extract it in your SDK sample directory (C:\ProgramData\NVIDIA Corporation\NVIDIA GPU Computing SDK 4.1\C\src).</p>
+<p>This is a feature I’ve been looking forward to for quite awhile, and I’m very glad to see it implemented in the newest CUDA release. Hopefully I’ve managed to describe to process clearly enough that other people can avoid the mistakes I made. If you still having trouble make sure you’ve called <code>cudaGLSetGLDevice</code>. I created a very simple source example from an SDK sample, so hopefully it will work/compile if you extract it in your SDK sample directory (C:\ProgramData\NVIDIA Corporation\NVIDIA GPU Computing SDK 4.1\C\src).</p>
 
 
 </section>
