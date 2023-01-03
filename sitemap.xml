@@ -2,114 +2,114 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rauwendaal.net/publications/Masters - Hybrid Computational Voxelization Using the Graphics Pipeline/index.html</loc>
-    <lastmod>2022-12-29T21:47:07.399Z</lastmod>
+    <lastmod>2023-01-03T22:47:51.046Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/publications/PhD - Voxel Based Indirect Illumination using Spherical Harmonics/index.html</loc>
-    <lastmod>2022-12-29T21:47:08.059Z</lastmod>
+    <lastmod>2023-01-03T22:47:51.798Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/publications/2013 - Hybrid Computational Voxelization Using the Graphics Pipeline/index.html</loc>
-    <lastmod>2022-12-29T21:47:08.375Z</lastmod>
+    <lastmod>2023-01-03T22:47:52.158Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/publications/2010 - Contour Planting A Strategy to Reduce Soil Erosion on Steep Slopes/index.html</loc>
-    <lastmod>2022-12-29T21:47:08.683Z</lastmod>
+    <lastmod>2023-01-03T22:47:52.518Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/publications/2014 - Layered Reflective Shadow Maps for Voxel-based Indirect Illumination/index.html</loc>
-    <lastmod>2022-12-29T21:47:08.967Z</lastmod>
+    <lastmod>2023-01-03T22:47:52.862Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/about.html</loc>
-    <lastmod>2022-12-29T21:47:09.247Z</lastmod>
+    <lastmod>2023-01-03T22:47:53.194Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/resume.html</loc>
-    <lastmod>2022-12-29T21:47:09.515Z</lastmod>
+    <lastmod>2023-01-03T22:47:53.506Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2013_04_03 - CUDA 5 and OpenGL Interop and Dynamic Parallelism/index.html</loc>
-    <lastmod>2022-12-29T21:47:10.043Z</lastmod>
+    <lastmod>2023-01-03T22:47:54.110Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2012_08_06 - OpenGL 4.3 released/index.html</loc>
-    <lastmod>2022-12-29T21:47:10.391Z</lastmod>
+    <lastmod>2023-01-03T22:47:54.518Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2012_08_27 - Writing to 3-components buffers using the image API in OpenGL/index.html</loc>
-    <lastmod>2022-12-29T21:47:10.831Z</lastmod>
+    <lastmod>2023-01-03T22:47:55.046Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2013_03_18 - Hybrid Computational Voxelization Using the Graphics Pipeline/index.html</loc>
-    <lastmod>2022-12-29T21:47:11.127Z</lastmod>
+    <lastmod>2023-01-03T22:47:55.414Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2013_08_14 - Bindless textures can “store”/index.html</loc>
-    <lastmod>2022-12-29T21:47:11.455Z</lastmod>
+    <lastmod>2023-01-03T22:47:55.758Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2012_06_15 - GLSL Sign Function/index.html</loc>
-    <lastmod>2022-12-29T21:47:11.851Z</lastmod>
+    <lastmod>2023-01-03T22:47:56.230Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2013_07_03 - AtomicCounters & IndirectBufferCommands/index.html</loc>
-    <lastmod>2022-12-29T21:47:12.291Z</lastmod>
+    <lastmod>2023-01-03T22:47:56.754Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2011_12_02 - Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes/index.html</loc>
-    <lastmod>2022-12-29T21:47:12.811Z</lastmod>
+    <lastmod>2023-01-03T22:47:57.378Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2014_06_14 - Rendering a Screen Covering Triangle in OpenGL (with no buffers)/index.html</loc>
-    <lastmod>2022-12-29T21:47:13.275Z</lastmod>
+    <lastmod>2023-01-03T22:47:57.930Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2012_07_18 - OpenGL should support loading shader files/index.html</loc>
-    <lastmod>2022-12-29T21:47:13.595Z</lastmod>
+    <lastmod>2023-01-03T22:47:58.294Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2013_02_07 - GLSL Snippet emulating running atomic average of colors using imageAtomicCompSwap/index.html</loc>
-    <lastmod>2022-12-29T21:47:13.955Z</lastmod>
+    <lastmod>2023-01-03T22:47:58.738Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2013_05_02 - Fixed imageAtomicAverageRGBA8/index.html</loc>
-    <lastmod>2022-12-29T21:47:14.323Z</lastmod>
+    <lastmod>2023-01-03T22:47:59.182Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2013_01_09 - Real-time Voxelization Demo/index.html</loc>
-    <lastmod>2022-12-29T21:47:14.611Z</lastmod>
+    <lastmod>2023-01-03T22:47:59.526Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2013_03_23 - CUDA 5 Enabling Dynamic Parallelism/index.html</loc>
-    <lastmod>2022-12-29T21:47:15.003Z</lastmod>
+    <lastmod>2023-01-03T22:47:59.998Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2014_08_09 - Rendering Volume Filling Triangles in OpenGL (with no buffers)/index.html</loc>
-    <lastmod>2022-12-29T21:47:15.443Z</lastmod>
+    <lastmod>2023-01-03T22:48:00.510Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2008_10_27 - OpenCV (and OpenGL)/index.html</loc>
-    <lastmod>2022-12-29T21:47:15.887Z</lastmod>
+    <lastmod>2023-01-03T22:48:01.034Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2014_05_21 - Readings on physically-based rendering/index.html</loc>
-    <lastmod>2022-12-29T21:47:16.171Z</lastmod>
+    <lastmod>2023-01-03T22:48:01.378Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2014_05_20 - Layered Reflective Shadow Maps for Voxel-based Indirect Illumination/index.html</loc>
-    <lastmod>2022-12-29T21:47:16.475Z</lastmod>
+    <lastmod>2023-01-03T22:48:01.750Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/posts/2010_01_12 - How to use CUDA 3.0's new Graphics Interoperability API with OpenGL/index.html</loc>
-    <lastmod>2022-12-29T21:47:16.995Z</lastmod>
+    <lastmod>2023-01-03T22:48:02.346Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/publications.html</loc>
-    <lastmod>2022-12-29T21:47:17.283Z</lastmod>
+    <lastmod>2023-01-03T22:48:02.682Z</lastmod>
   </url>
   <url>
     <loc>https://rauwendaal.net/index.html</loc>
-    <lastmod>2022-12-29T21:47:17.883Z</lastmod>
+    <lastmod>2023-01-03T22:48:03.386Z</lastmod>
   </url>
 </urlset>
