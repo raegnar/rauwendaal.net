@@ -1,7 +1,7 @@
 # Master’s Thesis
 ## Hybrid Computational Voxelization Using the Graphics Pipeline
 
-![voxeldragon](voxeldragon.png){alt="sponzaNice" width="200"}
+![voxeldragon](voxeldragon.png){alt="voxeldragon" width="200"}
 **Authors:** 
 **Randall Rauwendaal**\                       
 *Oregon State University*  
@@ -36,5 +36,5 @@ This thesis presents an efficient computational voxelization approach that utili
 }
 ```
 
-##Note
+## Note
 This is functionally the same material presented in the [JCGT paper](http://jcgt.org/published/0002/01/02/) of the same name. I would recommend reading the [JCGT paper](http://jcgt.org/published/0002/01/02/) over the thesis as it incorporates the excellent suggestions from their reviewers.

@@ -7,12 +7,13 @@ website:
   navbar:
     right:
       - about.qmd
-      - blog.qmd
+      # - blog.qmd
+      # - resume.rmd
       - publications.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/raegnar
       - icon: twitter
-        href: https://twitter.com
+        href: https://twitter.com/raegnar
 format:
   html:
     theme: litera

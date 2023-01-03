@@ -1,0 +1,166 @@
+---
+title: "Resume"
+author: Randall Rauwendaal
+date: "`r.Sys.Date()`"
+output:
+ pagedown::html_resume:
+    self_contained: true
+---
+
+# Aside
+
+<!-- ![Randall Rauwendaal](img/prof_pic.jpg){width=80%} -->
+
+## Contact Info {#contact}
+
+-   <i class="fa fa-envelope"></i> randall\@rauwendaal.net
+-   <i class="fa fa-github"></i> [github.com/raegnar](https://github.com/raegnar) <!-- - <i class="fa fa-phone"></i> 703-434-9689 -->
+-   <i class="fa fa-twitter"></i> [twitter.com/raegnar](https://twitter.com/raegnar)
+
+## Skills {#skills}
+
+-   Extensive knowledge of computer graphics and scientific visualization, global illumination algorithms, geometric modeling, and real-time and photorealistic rendering techniques.
+-   Proficient in C/C++, Zig, Java, Python, and Javascript.
+-   Experienced with OpenGL, DirectX, WebGPU, GLSL, HLSL, WGSL, and many graphics toolkits.
+
+## Disclaimer {#disclaimer}
+
+Last updated on `r Sys.Date()`.
+
+# Main
+
+## Randall Rauwendaal {#title}
+
+## Education {data-icon="graduation-cap" data-concise="true"}
+
+### Ph.D. in Computer Science
+Oregon State University
+
+Corvallis, OR
+
+2013
+
+Dissertation: Voxel Based Indirect Illumination using Spherical Harmonics
+
+### M.S. in Computer Scienc
+Oregon State University
+
+Corvallis, OR
+
+2012
+
+Hybrid Computational Voxelization using the Graphics Pipeline
+
+### Bachelors of Science in Computer Science and Engineering
+
+University of California at Davis
+
+Davis, CA
+
+2005
+
+## Professional Experience {data-icon="suitcase"}
+
+### Meta -- Reality Labs Research Graphics
+
+something 
+
+Remote
+
+2022 - 2023
+
+-   Co-designed a novel shadow rendering approach along with proposed hardware changes for a bespoke graphics IP.
+-   Proposed an Oracular Renderer as a significant enhancement over naïve cloud-device split renderer.
+
+### Apple -- Platform Architecture Group
+
+Cupertino, CA
+
+2015 - 2022
+
+-   Architected and designed the Apple Tessellator, Vertex Amplification, Multilayer Rendering, Barycentric Coordinates & Primitive ID, and Variable Rasterization Rate features.
+-   Led several significant X-functional efforts at Apple that resulted in differentiating IP.
+-   Prototyped advanced Graphics algorithms.
+-   Established and led the Rendering Research Discussion Group for 7 years (over 70 presentations!)
+-   Undisclosed research.
+
+### Intel -- Advanced Technology Group
+
+Victoria, BC
+
+2014 - 2015
+
+-   Provide architectural advice and consultation to game developers and middleware providers to best enable Intel graphics solutions.
+-   Research new real-time graphics techniques targeted at game developers.
+
+
+### Student Researcher
+
+Graphics and Image Technology Lab
+
+Corvallis, OR
+
+2006 − 2013 	
+
+Grantee of Intel’s Visual Computing Initiative
+
+- Explored advances in the parallelization and discretization of global illumination algorithms.
+
+Grantee for USDA Agricultural Research Program
+
+- Developed a contour following coverage algorithm based on GPU neural networks.
+
+
+### Intern
+
+Intel –- Advanced Visual Computing
+
+Hillsboro, OR
+
+2010 − 2011 	
+
+- Worked on the native API for Intel’s Many Integrated Core architecture.
+- Co-authored an internal white-paper evaluating several Intel proprietary parallel programming models for vector utilization.
+
+### Engineer V
+
+Center for Geotechnical Modeling 
+
+Davis, CA
+
+- Developed an intuitive application to gather data from a wireless sensor network.
+- Maintained UC Davis NEESit equipment site.
+
+### Gasdfasdf
+
+Center for Urban Forest Research 
+
+Davis, CA
+
+Summer 2003
+
+- Worked to develop a sophisticated 3D tree modeling program.
+- Utilized customized recursive L-systems to generate unique trees.
+
+### asdfasdfdd
+
+Guidant 
+
+Santa Clara, CA
+
+Summer 2002 	
+
+- Maintained critical operations database and developed site features.
+- Developed and designed several featured web pages.
+
+### Turbulent Dynamo Modeling Assistant
+
+Lockheed Martin Solar Astrophysics Lab
+
+Palo Alto, CA
+
+1998−1999
+
+- Investigated nonlinear dynamics of stellar dynamos.
+- Simulated the magnetic convection currents of the sun.
+- Rendered complex visualizations of solar dynamics.

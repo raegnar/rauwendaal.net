@@ -1,6 +1,6 @@
 # Hybrid Computational Voxelization Using the Graphics Pipeline
 
-![voxeldragon](voxeldragon.png){alt="sponzaNice" width="200"}
+![voxeldragon](voxeldragon.png){alt="voxeldragon" width="200"}
 **Authors:** 
 **Randall Rauwendaal**\                       
 *Oregon State University*
