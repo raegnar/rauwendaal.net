@@ -1,0 +1,46 @@
+/* css styles */
+a:link
+{
+    color: rgb(231, 126, 35);
+    text-decoration: none;
+}
+  
+/* visited link */
+a:visited 
+{
+    color: rgb(231, 126, 35);
+    text-decoration: none;
+}
+
+/* mouse over link */
+a:hover 
+{
+    color: hotpink;
+}
+
+/* selected link */
+a:active
+{
+    color: blue;
+}
+
+body
+{
+    font-family: "Raleway", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #666;
+}
+
+p
+{
+    font-family: "Raleway", Helvetica, Arial, sans-serif;
+}
+
+p code:not(.sourceCode), li code:not(.sourceCode)
+{
+    background-color: #f7f7f9;
+    color: #d14;
+    border: 1px solid #e1e1e8;
+    padding: .2em;
+}

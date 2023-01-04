@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/about.html</loc>
+    <lastmod>2023-01-04T18:47:38.549Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/index.html</loc>
+    <lastmod>2023-01-04T18:47:39.287Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2008_10_27 - OpenCV (and OpenGL)/index.html</loc>
+    <lastmod>2023-01-04T18:47:39.704Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2010_01_12 - How to use CUDA 3.0's new Graphics Interoperability API with OpenGL/index.html</loc>
+    <lastmod>2023-01-04T18:47:40.173Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2011_12_02 - Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes/index.html</loc>
+    <lastmod>2023-01-04T18:47:40.643Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2012_06_15 - GLSL Sign Function/index.html</loc>
+    <lastmod>2023-01-04T18:47:41.017Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2012_07_18 - OpenGL should support loading shader files/index.html</loc>
+    <lastmod>2023-01-04T18:47:41.305Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2012_08_06 - OpenGL 4.3 released/index.html</loc>
+    <lastmod>2023-01-04T18:47:41.587Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2012_08_27 - Writing to 3-components buffers using the image API in OpenGL/index.html</loc>
+    <lastmod>2023-01-04T18:47:41.981Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2013_01_09 - Real-time Voxelization Demo/index.html</loc>
+    <lastmod>2023-01-04T18:47:42.255Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2013_02_07 - GLSL Snippet emulating running atomic average of colors using imageAtomicCompSwap/index.html</loc>
+    <lastmod>2023-01-04T18:47:42.576Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2013_03_18 - Hybrid Computational Voxelization Using the Graphics Pipeline/index.html</loc>
+    <lastmod>2023-01-04T18:47:42.850Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2013_03_23 - CUDA 5 Enabling Dynamic Parallelism/index.html</loc>
+    <lastmod>2023-01-04T18:47:43.215Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2013_04_03 - CUDA 5 and OpenGL Interop and Dynamic Parallelism/index.html</loc>
+    <lastmod>2023-01-04T18:47:43.626Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2013_05_02 - Fixed imageAtomicAverageRGBA8/index.html</loc>
+    <lastmod>2023-01-04T18:47:43.929Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2013_07_03 - AtomicCounters & IndirectBufferCommands/index.html</loc>
+    <lastmod>2023-01-04T18:47:44.332Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2013_08_14 - Bindless textures can “store”/index.html</loc>
+    <lastmod>2023-01-04T18:47:44.589Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2014_05_20 - Layered Reflective Shadow Maps for Voxel-based Indirect Illumination/index.html</loc>
+    <lastmod>2023-01-04T18:47:44.859Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2014_05_21 - Readings on physically-based rendering/index.html</loc>
+    <lastmod>2023-01-04T18:47:45.109Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2014_06_14 - Rendering a Screen Covering Triangle in OpenGL (with no buffers)/index.html</loc>
+    <lastmod>2023-01-04T18:47:45.487Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2014_08_09 - Rendering Volume Filling Triangles in OpenGL (with no buffers)/index.html</loc>
+    <lastmod>2023-01-04T18:47:45.893Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/posts/2022_01_03 - Blog v3.0/index.html</loc>
+    <lastmod>2023-01-04T18:47:46.171Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/publications/2010 - Contour Planting A Strategy to Reduce Soil Erosion on Steep Slopes/index.html</loc>
+    <lastmod>2023-01-04T18:47:46.431Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/publications/2013 - Hybrid Computational Voxelization Using the Graphics Pipeline/index.html</loc>
+    <lastmod>2023-01-04T18:47:46.702Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/publications/2014 - Layered Reflective Shadow Maps for Voxel-based Indirect Illumination/index.html</loc>
+    <lastmod>2023-01-04T18:47:46.964Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/publications/Masters - Hybrid Computational Voxelization Using the Graphics Pipeline/index.html</loc>
+    <lastmod>2023-01-04T18:47:47.232Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/publications/PhD - Voxel Based Indirect Illumination using Spherical Harmonics/index.html</loc>
+    <lastmod>2023-01-04T18:47:47.493Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/publications.html</loc>
+    <lastmod>2023-01-04T18:47:47.755Z</lastmod>
+  </url>
+  <url>
+    <loc>https://raegnar.github.io/rauwendaal.net/resume.html</loc>
+    <lastmod>2023-01-04T18:47:48.866Z</lastmod>
+  </url>
+</urlset>

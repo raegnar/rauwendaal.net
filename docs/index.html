@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>rauwendaal.net</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-date','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+<link rel="alternate" type="application/rss+xml" title="rauwendaal.net" href="index.xml"></head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">rauwendaal.net</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./publications.html">
+ <span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/raegnar"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/raegnar"><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/randall-rauwendaal-6ba01a7/"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="./index.xml"><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(20)</span></div><div class="category" data-category="CUDA">CUDA <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Dynamic Parallelism">Dynamic Parallelism <span class="quarto-category-count">(2)</span></div><div class="category" data-category="GLSL">GLSL <span class="quarto-category-count">(12)</span></div><div class="category" data-category="OpenCV">OpenCV <span class="quarto-category-count">(1)</span></div><div class="category" data-category="OpenGL">OpenGL <span class="quarto-category-count">(16)</span></div></div></div>
+<!-- main -->
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+
+
+
+
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1641193200000" data-listing-file-modified-sort="1672855412347" data-listing-reading-time-sort="1.235">
+<div class="thumbnail">
+<a href="./posts/2022_01_03 - Blog v3.0/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2022_01_03 - Blog v3.0/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2022_01_03 - Blog v3.0/index.html">
+<h3 class="no-anchor listing-title">
+Blog v3.0
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+This is now the 3rd iteration of this blog, the first was Google Sites (classic), which proved rather cumbersome, and has now been replaced with a “new and improved” version, but I no longer trust Google, I’m actively…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2022_01_03 - Blog v3.0/index.html">
+<div class="listing-date">
+Jan 3, 2022
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="GLSL,OpenGL" data-listing-date-sort="1407564000000" data-listing-file-modified-sort="1672273978215" data-listing-reading-time-sort="1.395">
+<div class="thumbnail">
+<p><a href="./posts/2014_08_09 - Rendering Volume Filling Triangles in OpenGL (with no&nbsp;buffers)/index.html"> <img src="./posts/2014_08_09 - Rendering Volume Filling Triangles in OpenGL (with no&nbsp;buffers)/volumefillingtriangles.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2014_08_09 - Rendering Volume Filling Triangles in OpenGL (with no&nbsp;buffers)/index.html">
+<h3 class="no-anchor listing-title">
+Rendering Volume Filling Triangles in OpenGL (with no&nbsp;buffers)
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+This is the promised follow-up to Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers), except this time the goal is to write a shader that accesses every location in a 3d texture (volume). &nbsp;We use the same screen covering trick as before to draw a triangle…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2014_08_09 - Rendering Volume Filling Triangles in OpenGL (with no&nbsp;buffers)/index.html">
+<div class="listing-date">
+Aug 9, 2014
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="GLSL,OpenGL" data-listing-date-sort="1402725600000" data-listing-file-modified-sort="1672273692383" data-listing-reading-time-sort="1.585">
+<div class="thumbnail">
+<p><a href="./posts/2014_06_14 - Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)/index.html"> <img src="./posts/2014_06_14 - Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)/glscreenspacetriangle1.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2014_06_14 - Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)/index.html">
+<h3 class="no-anchor listing-title">
+Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+This one…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2014_06_14 - Rendering a Screen Covering Triangle in OpenGL (with no&nbsp;buffers)/index.html">
+<div class="listing-date">
+Jun 14, 2014
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="GLSL,OpenGL" data-listing-date-sort="1400652000000" data-listing-file-modified-sort="1672271240248" data-listing-reading-time-sort="0.18">
+<div class="thumbnail">
+<a href="./posts/2014_05_21 - Readings on physically-based rendering/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2014_05_21 - Readings on physically-based rendering/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2014_05_21 - Readings on physically-based rendering/index.html">
+<h3 class="no-anchor listing-title">
+Readings on physically-based rendering
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+Another nice collections of links and papers too valuable to lose among all my bookmarks. &nbsp;This time on physically-based rendering, put together by Kostas Anagnostou (@thin…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2014_05_21 - Readings on physically-based rendering/index.html">
+<div class="listing-date">
+May 21, 2014
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="OpenGL" data-listing-date-sort="1376460000000" data-listing-file-modified-sort="1672271221452" data-listing-reading-time-sort="0.46">
+<div class="thumbnail">
+<a href="./posts/2013_08_14 - Bindless textures can “store”/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2013_08_14 - Bindless textures can “store”/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2013_08_14 - Bindless textures can “store”/index.html">
+<h3 class="no-anchor listing-title">
+Bindless textures can “store”
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+I don't know how I missed this when Nvidia released <code>NV_bindless_texture</code>, I guess because all the samples I saw used bindless…<code></code><code></code><code></code>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2013_08_14 - Bindless textures can “store”/index.html">
+<div class="listing-date">
+Aug 14, 2013
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="GLSL,OpenGL" data-listing-date-sort="1372831200000" data-listing-file-modified-sort="1672115974917" data-listing-reading-time-sort="2.63">
+<div class="thumbnail">
+<a href="./posts/2013_07_03 - AtomicCounters &amp; IndirectBufferCommands/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2013_07_03 - AtomicCounters &amp; IndirectBufferCommands/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2013_07_03 - AtomicCounters &amp; IndirectBufferCommands/index.html">
+<h3 class="no-anchor listing-title">
+AtomicCounters &amp; IndirectBufferCommands
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+I’ve made use of Atomic Counters and Indirect Buffers in the past, but always in the most straightforward manner. I.e. create a dedicated buffer for…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2013_07_03 - AtomicCounters &amp; IndirectBufferCommands/index.html">
+<div class="listing-date">
+Jul 3, 2013
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="GLSL,OpenGL" data-listing-date-sort="1369116000000" data-listing-file-modified-sort="1672335401227" data-listing-reading-time-sort="1.175">
+<div class="thumbnail">
+<p><a href="./posts/2014_05_20 - Layered Reflective Shadow Maps for Voxel-based Indirect Illumination/index.html"> <img src="./posts/2014_05_20 - Layered Reflective Shadow Maps for Voxel-based Indirect Illumination/layered_reflective_shadow_maps_for_voxel-based_indirect.jpg" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2014_05_20 - Layered Reflective Shadow Maps for Voxel-based Indirect Illumination/index.html">
+<h3 class="no-anchor listing-title">
+Layered Reflective Shadow Maps for Voxel-based Indirect Illumination
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+So, a lot has happened. I completed my Doctorate, almost moved to Norway, but then ended up moving to Canada instead (Victoria, BC). I now work for the Advanced Technology…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2014_05_20 - Layered Reflective Shadow Maps for Voxel-based Indirect Illumination/index.html">
+<div class="listing-date">
+May 21, 2013
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="GLSL" data-listing-date-sort="1367474400000" data-listing-file-modified-sort="1672273719268" data-listing-reading-time-sort="1.315">
+<div class="thumbnail">
+<a href="./posts/2013_05_02 - Fixed imageAtomicAverageRGBA8/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2013_05_02 - Fixed imageAtomicAverageRGBA8/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2013_05_02 - Fixed imageAtomicAverageRGBA8/index.html">
+<h3 class="no-anchor listing-title">
+Fixed imageAtomicAverageRGBA8
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+So I fixed some issues I had in my previous implementation of <code>imageAtomicAverageRGBA8</code>, see the previous post (“GLSL Snippet: emulating running atomic average of colors using&nbsp;imageAtomicCompSwap”)&nbsp;for an explanation of what I got wrong. &nbsp;Reposting&nbsp;the corrected…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2013_05_02 - Fixed imageAtomicAverageRGBA8/index.html">
+<div class="listing-date">
+May 2, 2013
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="CUDA,OpenGL,Dynamic Parallelism" data-listing-date-sort="1364968800000" data-listing-file-modified-sort="1672266519963" data-listing-reading-time-sort="2.875">
+<div class="thumbnail">
+<a href="./posts/2013_04_03 - CUDA 5 and OpenGL Interop and Dynamic Parallelism/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2013_04_03 - CUDA 5 and OpenGL Interop and Dynamic Parallelism/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2013_04_03 - CUDA 5 and OpenGL Interop and Dynamic Parallelism/index.html">
+<h3 class="no-anchor listing-title">
+CUDA 5 and OpenGL Interop and Dynamic&nbsp;Parallelism
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+I seem to revisit this every time every time Nvidia releases a new version of of CUDA.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2013_04_03 - CUDA 5 and OpenGL Interop and Dynamic Parallelism/index.html">
+<div class="listing-date">
+Apr 3, 2013
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-categories="CUDA,Dynamic Parallelism" data-listing-date-sort="1364018400000" data-listing-file-modified-sort="1672332725200" data-listing-reading-time-sort="0.61">
+<div class="thumbnail">
+<p><a href="./posts/2013_03_23 - CUDA 5 Enabling Dynamic Parallelism/index.html"> <img src="./posts/2013_03_23 - CUDA 5 Enabling Dynamic Parallelism/layered_reflective_shadow_maps_for_voxel-based_indirect.jpg" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2013_03_23 - CUDA 5 Enabling Dynamic Parallelism/index.html">
+<h3 class="no-anchor listing-title">
+CUDA 5: Enabling Dynamic&nbsp;Parallelism
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+I finally got a GPU capable of dynamic parallelism, so I finally decided to mess around with CUDA 5. &nbsp;But I discovered a couple of configuration options that are required if…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2013_03_23 - CUDA 5 Enabling Dynamic Parallelism/index.html">
+<div class="listing-date">
+Mar 23, 2013
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-categories="GLSL,OpenGL" data-listing-date-sort="1363586400000" data-listing-file-modified-sort="1672273835484" data-listing-reading-time-sort="0.735">
+<div class="thumbnail">
+<p><a href="./posts/2013_03_18 - Hybrid Computational Voxelization Using the Graphics Pipeline/index.html"> <img src="./posts/2013_03_18 - Hybrid Computational Voxelization Using the Graphics Pipeline/dragonforward.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2013_03_18 - Hybrid Computational Voxelization Using the Graphics Pipeline/index.html">
+<h3 class="no-anchor listing-title">
+Hybrid Computational Voxelization Using the Graphics Pipeline
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+Got a paper published in the Journal of Computer Graphics Techniques, see it here
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2013_03_18 - Hybrid Computational Voxelization Using the Graphics Pipeline/index.html">
+<div class="listing-date">
+Mar 18, 2013
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-categories="GLSL,OpenGL" data-listing-date-sort="1360393200000" data-listing-file-modified-sort="1672266337121" data-listing-reading-time-sort="0.02">
+<div class="thumbnail">
+<a href="./posts/2013_01_09 - Real-time Voxelization Demo/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2013_01_09 - Real-time Voxelization Demo/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2013_01_09 - Real-time Voxelization Demo/index.html">
+<h3 class="no-anchor listing-title">
+Real-time voxelization demo
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>Video of a real-time voxel animation demo.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2013_01_09 - Real-time Voxelization Demo/index.html">
+<div class="listing-date">
+Feb 9, 2013
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="12" data-categories="GLSL,OpenGL" data-listing-date-sort="1360220400000" data-listing-file-modified-sort="1672266411867" data-listing-reading-time-sort="2.43">
+<div class="thumbnail">
+<a href="./posts/2013_02_07 - GLSL Snippet emulating running atomic average of colors using imageAtomicCompSwap/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2013_02_07 - GLSL Snippet emulating running atomic average of colors using imageAtomicCompSwap/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2013_02_07 - GLSL Snippet emulating running atomic average of colors using imageAtomicCompSwap/index.html">
+<h3 class="no-anchor listing-title">
+GLSL Snippet emulating running atomic average of colors using imageAtomicCompSwap
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+This is basically straight out of the [Crassin &amp; Greene] chapter from the excellent OpenGL Insights book, which calculates a running average for a RGB voxel color and stores it into a RGBA8 texture (using the alpha component as an access count). &nbsp;But for whatever reason…<code></code><code></code>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2013_02_07 - GLSL Snippet emulating running atomic average of colors using imageAtomicCompSwap/index.html">
+<div class="listing-date">
+Feb 7, 2013
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="13" data-categories="GLSL,OpenGL" data-listing-date-sort="1346047200000" data-listing-file-modified-sort="1672259734734" data-listing-reading-time-sort="1.26">
+<div class="thumbnail">
+<a href="./posts/2012_08_27 - Writing to 3-components buffers using the image API in OpenGL/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2012_08_27 - Writing to 3-components buffers using the image API in OpenGL/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2012_08_27 - Writing to 3-components buffers using the image API in OpenGL/index.html">
+<h3 class="no-anchor listing-title">
+Writing to 3-components buffers using the image API in&nbsp;OpenGL
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+As I've describe in…<code></code>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2012_08_27 - Writing to 3-components buffers using the image API in OpenGL/index.html">
+<div class="listing-date">
+Aug 27, 2012
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="14" data-categories="OpenGL" data-listing-date-sort="1344232800000" data-listing-file-modified-sort="1672333026064" data-listing-reading-time-sort="1.535">
+<div class="thumbnail">
+<a href="./posts/2012_08_06 - OpenGL 4.3 released/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2012_08_06 - OpenGL 4.3 released/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2012_08_06 - OpenGL 4.3 released/index.html">
+<h3 class="no-anchor listing-title">
+OpenGL 4.3 released
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+OpenGL 4.3 has just been released and almost instantly G-Truc (Christophe Riccio)&nbsp;posted another excellent of his excellent OpenGL reviews. &nbsp;Additionally Mike Bailey has already made…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2012_08_06 - OpenGL 4.3 released/index.html">
+<div class="listing-date">
+Aug 6, 2012
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="15" data-categories="GLSL,OpenGL" data-listing-date-sort="1342591200000" data-listing-file-modified-sort="1672266312309" data-listing-reading-time-sort="2.29">
+<div class="thumbnail">
+<a href="./posts/2012_07_18 - OpenGL should support loading shader files/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2012_07_18 - OpenGL should support loading shader files/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2012_07_18 - OpenGL should support loading shader files/index.html">
+<h3 class="no-anchor listing-title">
+OpenGL should support loading shader files
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+OpenGL’s shader system is purely string based. Just pass it a couple of strings worth of shader code, compile, link, and go.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2012_07_18 - OpenGL should support loading shader files/index.html">
+<div class="listing-date">
+Jul 18, 2012
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="16" data-categories="CUDA,OpenGL" data-listing-date-sort="1322809200000" data-listing-file-modified-sort="1672332060155" data-listing-reading-time-sort="4.625">
+<div class="thumbnail">
+<a href="./posts/2011_12_02 - Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2011_12_02 - Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2011_12_02 - Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes/index.html">
+<h3 class="no-anchor listing-title">
+Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<strong>Edit:</strong> For how this works in CUDA 5 see my new post CUDA 5 and OpenGL Interop and Dynamic&nbsp;Parallelism.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2011_12_02 - Writing to 3D OpenGL textures in CUDA 4.1 with 3D surface writes/index.html">
+<div class="listing-date">
+Dec 2, 2011
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="17" data-categories="GLSL" data-listing-date-sort="1297321200000" data-listing-file-modified-sort="1672271182045" data-listing-reading-time-sort="0.515">
+<div class="thumbnail">
+<a href="./posts/2012_06_15 - GLSL Sign Function/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2012_06_15 - GLSL Sign Function/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2012_06_15 - GLSL Sign Function/index.html">
+<h3 class="no-anchor listing-title">
+GLSL sign function
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+The GLSL sign function always seems a great way to remove some…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2012_06_15 - GLSL Sign Function/index.html">
+<div class="listing-date">
+Feb 10, 2011
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="18" data-categories="CUDA,OpenGL" data-listing-date-sort="1263279600000" data-listing-file-modified-sort="1672331817524" data-listing-reading-time-sort="4.93">
+<div class="thumbnail">
+<a href="./posts/2010_01_12 - How to use CUDA 3.0's new Graphics Interoperability API with OpenGL/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2010_01_12 - How to use CUDA 3.0's new Graphics Interoperability API with OpenGL/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2010_01_12 - How to use CUDA 3.0's new Graphics Interoperability API with OpenGL/index.html">
+<h3 class="no-anchor listing-title">
+How to use CUDA 3.0’s new Graphics Interoperability API with OpenGL
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+It always bothered me that whenever I took a look at using CUDA in my graphics applications there didn’t seem to be an elegant…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2010_01_12 - How to use CUDA 3.0's new Graphics Interoperability API with OpenGL/index.html">
+<div class="listing-date">
+Jan 12, 2010
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="19" data-categories="OpenCV,OpenGL" data-listing-date-sort="1225087200000" data-listing-file-modified-sort="1672258447702" data-listing-reading-time-sort="2.265">
+<div class="thumbnail">
+<a href="./posts/2008_10_27 - OpenCV (and OpenGL)/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2008_10_27 - OpenCV (and OpenGL)/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2008_10_27 - OpenCV (and OpenGL)/index.html">
+<h3 class="no-anchor listing-title">
+OpenCV (and OpenGL)
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+So I started using OpenCV for my&nbsp;Computer Vision class, but I didn’t want to give up my OpenGL based framework, and since I had such a hard time finding any hints…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2008_10_27 - OpenCV (and OpenGL)/index.html">
+<div class="listing-date">
+Oct 27, 2008
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
