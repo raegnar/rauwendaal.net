@@ -6,7 +6,7 @@ website:
   site-url: "https://rauwendaal.net"
   navbar:
     right:
-      - about.qmd
+      # - about.qmd
       # - blog.qmd
       # - resume.rmd
       - publications.qmd
@@ -14,6 +14,8 @@ website:
         href: https://github.com/raegnar
       - icon: twitter
         href: https://twitter.com/raegnar
+      - icon: linkedin
+        href: https://linkedin.com/in/randall-rauwendaal-6ba01a7/
 format:
   html:
     theme: litera
