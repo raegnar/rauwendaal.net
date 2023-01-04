@@ -1,0 +1,25 @@
+---
+title: "Blog v3.0"
+author: "Randall Rauwendaal"
+format: 
+  html:
+    code-line-numbers: true
+editor: visual
+date: "2022-01-03"
+# categories: [Blog]
+citation: false
+---
+
+This is now the 3rd iteration of this blog, the first was [Google Sites (classic)](https://en.wikipedia.org/wiki/Google_Sites), which proved rather cumbersome, and has now been replaced with a "new and improved" version, but I no longer trust Google, I'm actively migrating away from Google products, and I'm sure it is only a matter of time before this too gets [killed by Google](https://killedbygoogle.com/) anyway.
+
+The second iteration was [WordPress](https://wordpress.com), under the wrongheaded assumption that this would be the easiest to maintain, but in reality proved to be far too inflexible.
+
+Now I've gone ahead and now I've ported the whole thing over to [Quarto](https://quarto.org/) hosted on [Github Pages](https://pages.github.com/).
+
+Blog v1 still exist after migration to the new Google Sites and contains 21 blog posts and 0 of a few dozen draft posts that were deleted after migration. Thanks Google!
+
+Blog v2 still exists on WordPress with 20 published posts (18 original and 2 ported from v1) with 27 unpublished drafts. I stopped contributing to this after I began working at Apple in 2015, because it was far too hard to determine what would or wouldn't get me in trouble to post.
+
+Blog v3 is here, and contains this post as the first original post of mine since 2014. All posts from v2 of the blog have been ported over. Things aren't quite where I'd like them to be, but its reached "good enough" status.
+
+Anyway, hopefully this iteration will last for awhile and inspire me to post more, or at least a few time a year.
