@@ -3,7 +3,7 @@ project:
 
 website:
   title: "rauwendaal.net"
-  site-url: "https://rauwendaal.net"
+  site-url: "https://raegnar.github.io/rauwendaal.net/"
   navbar:
     right:
       # - about.qmd
@@ -16,6 +16,8 @@ website:
         href: https://twitter.com/raegnar
       - icon: linkedin
         href: https://linkedin.com/in/randall-rauwendaal-6ba01a7/
+      - icon: rss
+        href: index.xml
 format:
   html:
     theme: litera
