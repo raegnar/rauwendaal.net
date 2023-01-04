@@ -4,7 +4,7 @@ project:
 
 website:
   title: "rauwendaal.net"
-  site-url: "https://raegnar.github.io/rauwendaal.net/"
+  # site-url: "https://raegnar.github.io/rauwendaal.net/"
   navbar:
     right:
       # - about.qmd
